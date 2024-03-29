@@ -8,6 +8,7 @@
   touch-action: none;
   color: white;
   font-family: "CodeProDemo";
+    font-size: 1.1rem;
 }
 
 .country:last-child {
