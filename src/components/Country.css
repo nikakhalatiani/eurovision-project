@@ -1,0 +1,93 @@
+.country {
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(255, 0, 0, 0.1);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  touch-action: none;
+  color: white;
+  font-family: "CodeProDemo";
+}
+
+.country:last-child {
+  margin-bottom: 20px;
+}
+
+@font-face {
+  font-family: "CodeProDemo";
+  src: url("./src/fonts/font.woff2") format("woff2"),
+    url("./src/fonts/font.woff") format("woff");
+}
+
+.content {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.countryName {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 10px;
+  padding-top: 3px;
+}
+
+.fi {
+  position: relative;
+  display: inline-block; /* or 'block' depending on your layout */
+}
+
+.fi::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 0, 255, 1),
+    rgba(0, 255, 255, 1)
+  );
+  mix-blend-mode: overlay; /* This will blend the gradient with the flag */
+}
+
+button {
+  background: none; /* Remove background */
+  border: none; /* Remove border */
+  padding: 0; /* Reset padding */
+  margin: 0; /* Reset margin */
+  width: auto; /* Reset width to default */
+  height: auto; /* Reset height to default */
+  overflow: visible; /* Show overflow */
+  line-height: normal; /* Reset line height */
+  -webkit-appearance: none; /* Remove default styling for iOS buttons */
+  -moz-appearance: none; /* Remove default styling for Firefox buttons */
+  appearance: none; /* Remove default styling for modern browsers */
+  font: inherit; /* Inherit font from parent */
+  color: inherit; /* Inherit color from parent */
+  text-align: left; /* Default text alignment */
+  cursor: pointer; /* Maintain the cursor to signify it's clickable */
+}
+
+/* Optional: Remove focus outline for a more div-like appearance */
+button:focus {
+  outline: none;
+}
+
+.number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(247, 234, 26, 1);
+  color: rgba(252, 71, 201, 1);
+  overflow: hidden;
+  mix-blend-mode: difference;
+  font-family: "CodeProDemo";
+  width: 41px;
+    height: 36px;
+}
