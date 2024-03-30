@@ -15,7 +15,7 @@ import { SmartPointerSensor } from "./components/SmartPointerSensor";
 import { SmartTouchSensor } from "./components/SmartTouchSensor";
 function App() {
   const firstSemiFinal = [
-    { id: "CY", content: "Cyprus", music: "./src/music/Cyprus.mp3" },
+    { id: "CY", content: "Cyprus", music: "./src/music/Cyprus1.mp3" },
     { id: "RS", content: "Serbia", music: "./src/music/Serbia.mp3" },
     { id: "LT", content: "Lithuania", music: "./src/music/Lithuania.mp3" },
     { id: "IE", content: "Ireland", music: "./src/music/Ireland.mp3" },
@@ -68,7 +68,7 @@ function App() {
     { id: "ES", content: "Spain", music: "./src/music/Spain.mp3" },
   ];
 
-  const [items, setItems] = useState(firstSemiFinal);
+  const [items, setItems] = useState(finalists);
 
   // useEffect(() => {
   //   const semifinalChange = new Date("2024-05-08T22:00:00Z");
