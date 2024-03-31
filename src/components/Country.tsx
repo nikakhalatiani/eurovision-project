@@ -47,6 +47,7 @@ export const Country = ({
     audioElement.currentTime = 0;
     playMusic(""); // Assuming this stops the music and sets isPlaying to false
   } else {
+    console.log("Playing music" + audioId);
     playMusic(audioId); // Assuming this starts the music and sets isPlaying to true
     audioElement.play();
   }

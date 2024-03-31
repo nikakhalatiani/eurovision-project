@@ -1,5 +1,7 @@
 type ColumnProps = {
-  items: { id: string; content: string; music: string }[]; // Replace 'any' with the appropriate type for 'items'
+  items: { id: string; content: string; music: string }[];
+  playMusic: (music: string) => void;
+  playingMusicId: string | null;
 };
 
 import {
@@ -8,23 +10,10 @@ import {
 } from "@dnd-kit/sortable";
 import "./Column.css";
 import { Country } from "./Country.tsx";
-import { useState } from "react";
 
-export const Column = ({ items }: ColumnProps) => {
-  const [playingMusicId, setPlayingMusicId] = useState<string | null>(null);
+export const Column = ({ items, playMusic, playingMusicId }: ColumnProps) => {
 
-  const playMusic = (id: string) => {
-    if (playingMusicId !== id) {
-      if (playingMusicId) {
-        const audioElement = document.getElementById(playingMusicId) as HTMLAudioElement;
-        if (audioElement) {
-          audioElement.pause();
-          audioElement.currentTime = 0;
-        }
-      }
-      setPlayingMusicId(id);
-    }
-  };
+ 
   return (
     <div className="column">
       <SortableContext items={items} strategy={verticalListSortingStrategy}>
