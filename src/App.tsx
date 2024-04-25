@@ -1,6 +1,6 @@
 import "./App.css";
 import SVGComponent from "./components/SVGComponent";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   DndContext,
   KeyboardSensor,
