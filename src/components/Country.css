@@ -15,8 +15,8 @@
 
 @font-face {
   font-family: "CodeProDemo";
-  src: url("./src/fonts/font.woff2") format("woff2"),
-    url("./src/fonts/font.woff") format("woff");
+  src: url("./fonts/font.woff2") format("woff2"),
+    url("./fonts/font.woff") format("woff");
 }
 
 .content {
