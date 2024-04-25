@@ -33,43 +33,43 @@ function App() {
     { id: "LU", content: "Luxembourg", music: "./music2/Luxembourg.mp3" },
   ];
 
-  const secondSemiFinal = [
-    { id: "MT", content: "Malta", music: "./music2/Malta.mp3" },
-    { id: "AL", content: "Albania", music: "./music2/Albania.mp3" },
-    { id: "GR", content: "Greece", music: "./music2/Greece.mp3" },
-    { id: "CH", content: "Switzerland ", music: "./music2/Switzerland.mp3" },
-    {
-      id: "CZ",
-      content: "Czech Republic",
-      music: "./music2/CzechRepublic.mp3",
-    },
-    { id: "AT", content: "Austria", music: "./music2/Austria.mp3" },
-    { id: "DK", content: "Denmark", music: "./music2/Denmark.mp3" },
-    { id: "AM", content: "Armenia", music: "./music2/Armenia.mp3" },
-    { id: "LV", content: "Latvia", music: "./music2/Latvia.mp3" },
-    { id: "SM", content: "San Marino", music: "./music2/SanMarino.mp3" },
-    { id: "GE", content: "Georgia", music: "./music2/Georgia.mp3" },
-    { id: "BE", content: "Belgium", music: "./music2/Belgium.mp3" },
-    { id: "EE", content: "Estonia", music: "./music2/Estonia.mp3" },
-    { id: "IL", content: "Israel", music: "./music2/Israel.mp3" },
-    { id: "NO", content: "Norway", music: "./music2/Norway.mp3" },
-    { id: "NL", content: "Netherlands", music: "./music2/Netherlands.mp3" },
-  ];
+  // const secondSemiFinal = [
+  //   { id: "MT", content: "Malta", music: "./music2/Malta.mp3" },
+  //   { id: "AL", content: "Albania", music: "./music2/Albania.mp3" },
+  //   { id: "GR", content: "Greece", music: "./music2/Greece.mp3" },
+  //   { id: "CH", content: "Switzerland ", music: "./music2/Switzerland.mp3" },
+  //   {
+  //     id: "CZ",
+  //     content: "Czech Republic",
+  //     music: "./music2/CzechRepublic.mp3",
+  //   },
+  //   { id: "AT", content: "Austria", music: "./music2/Austria.mp3" },
+  //   { id: "DK", content: "Denmark", music: "./music2/Denmark.mp3" },
+  //   { id: "AM", content: "Armenia", music: "./music2/Armenia.mp3" },
+  //   { id: "LV", content: "Latvia", music: "./music2/Latvia.mp3" },
+  //   { id: "SM", content: "San Marino", music: "./music2/SanMarino.mp3" },
+  //   { id: "GE", content: "Georgia", music: "./music2/Georgia.mp3" },
+  //   { id: "BE", content: "Belgium", music: "./music2/Belgium.mp3" },
+  //   { id: "EE", content: "Estonia", music: "./music2/Estonia.mp3" },
+  //   { id: "IL", content: "Israel", music: "./music2/Israel.mp3" },
+  //   { id: "NO", content: "Norway", music: "./music2/Norway.mp3" },
+  //   { id: "NL", content: "Netherlands", music: "./music2/Netherlands.mp3" },
+  // ];
 
-  const finalists = [
-    { id: "SE", content: "Sweden", music: "./music2/Sweden.mp3" },
-    { id: "FR", content: "France", music: "./music2/France.mp3" },
-    { id: "IT", content: "Italy", music: "./music2/Italy.mp3" },
-    {
-      id: "GB",
-      content: "United Kingdom",
-      music: "./music2/UnitedKingdom.mp3",
-    },
-    { id: "DE", content: "Germany", music: "./music2/Germany.mp3" },
-    { id: "ES", content: "Spain", music: "./music2/Spain.mp3" },
-  ];
+  // const finalists = [
+  //   { id: "SE", content: "Sweden", music: "./music2/Sweden.mp3" },
+  //   { id: "FR", content: "France", music: "./music2/France.mp3" },
+  //   { id: "IT", content: "Italy", music: "./music2/Italy.mp3" },
+  //   {
+  //     id: "GB",
+  //     content: "United Kingdom",
+  //     music: "./music2/UnitedKingdom.mp3",
+  //   },
+  //   { id: "DE", content: "Germany", music: "./music2/Germany.mp3" },
+  //   { id: "ES", content: "Spain", music: "./music2/Spain.mp3" },
+  // ];
 
-  const [items, setItems] = useState(finalists.concat(firstSemiFinal).concat(secondSemiFinal));
+  const [items, setItems] = useState(firstSemiFinal);
   const [playingMusicId, setPlayingMusicId] = useState<string | null>(null);
 
 
