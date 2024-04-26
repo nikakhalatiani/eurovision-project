@@ -1,6 +1,6 @@
 import "./App.css";
 import SVGComponent from "./components/SVGComponent";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   DndContext,
   KeyboardSensor,
@@ -86,11 +86,20 @@ function MainApp() {
   //   { id: "ES", content: "Spain", music: "./music2/Spain.mp3" },
   // ];
 
-  const [items, setItems] = useState(firstSemiFinal);
+  const [items, setItems] = useState(() => {
+    // Get the saved items from localStorage if available, otherwise set a default list
+    const savedItems = localStorage.getItem('countryItems');
+    return savedItems ? JSON.parse(savedItems) : firstSemiFinal;
+  });  
   const [playingMusicId, setPlayingMusicId] = useState<string | null>(null);
   const hasPlayedMusic = playingMusicId !== null;
   const [showTooltip, setShowTooltip] = useState(false);
 
+
+  useEffect(() => {
+    // Save the items to localStorage whenever they change
+    localStorage.setItem('countryItems', JSON.stringify(items));
+  }, [items]);
 
 
   // useEffect(() => {
@@ -107,13 +116,13 @@ function MainApp() {
   // }, []);
 
   const getCountryPos = (id: string) =>
-    items.findIndex((item) => item.id === id);
+    items.findIndex((item:any ) => item.id === id);
 
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
 
     if (!over) return; // Add this line to prevent errors when dropping outside a valid area
-    setItems((tasks) => {
+    setItems((tasks:any) => {
       const originalPos = getCountryPos(active.id);
       const newPos = getCountryPos(over.id);
       return arrayMove(tasks, originalPos, newPos);
@@ -122,7 +131,7 @@ function MainApp() {
 
   const handleSubmission = () => {
     if (!hasPlayedMusic) { 
-      alert("Find hidden music player before submitting your vote!");
+      alert("Find hidden music player before submitting your vote. There is no going back!");
       setShowTooltip(true);
       return; // Exit the function to prevent further execution until music is played
     }
