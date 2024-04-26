@@ -12,7 +12,7 @@ body {
     rgba(232, 212, 37, 1) 75%,
     rgba(41, 189, 212, 1) 100%
   );
-  --custom-gradient2: repeating-linear-gradient(
+  --custom-gradient2: linear-gradient(
     0deg, /* Rotate to -90 degrees for upward gradient */
     rgba(252, 128, 5, 1) 0%,
     rgba(252, 71, 201, 1) 25%,    /* Adjust the color breakpoints */
@@ -26,11 +26,11 @@ body {
     rgb(0, 40, 218) 50%,
     rgba(102, 44, 180, 1) 100%
   );
-  
+
 }
 
 body {
-  background: var(--custom-gradient3);
+  background: var(--custom-gradient1);
   background-size: auto 400%; /* Increase the height to 400% for a smooth loop */
   animation: bg-animation 100s linear infinite;
 }

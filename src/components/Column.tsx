@@ -2,6 +2,8 @@ type ColumnProps = {
   items: { id: string; content: string; music: string }[];
   playMusic: (music: string) => void;
   playingMusicId: string | null;
+  showTooltip : boolean;
+  setShowTooltip: (showTooltip: boolean) => void;
 };
 
 import {
@@ -11,7 +13,7 @@ import {
 import "./Column.css";
 import { Country } from "./Country.tsx";
 
-export const Column = ({ items, playMusic, playingMusicId }: ColumnProps) => {
+export const Column = ({ items, playMusic, playingMusicId, showTooltip, setShowTooltip}: ColumnProps) => {
 
  
   return (
@@ -26,6 +28,8 @@ export const Column = ({ items, playMusic, playingMusicId }: ColumnProps) => {
             music={item.music}
           playMusic={playMusic}
           isPlaying={playingMusicId === `audio-${item.id}`}
+          showTooltip={index === 0 && showTooltip}
+          setShowTooltip={setShowTooltip}
           />
         ))}
       </SortableContext>

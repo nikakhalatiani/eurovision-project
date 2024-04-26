@@ -11,6 +11,7 @@ export const Country = ({
   music,
   playMusic,
   isPlaying,
+  showTooltip, setShowTooltip,
 }: {
   id: string;
   content: string;
@@ -18,6 +19,8 @@ export const Country = ({
   playMusic: (music: string) => void;
   music: string;
   isPlaying: boolean;
+  showTooltip: boolean;
+  setShowTooltip: (showTooltip: boolean) => void;
 }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
@@ -47,6 +50,7 @@ export const Country = ({
     audioElement.currentTime = 0;
     playMusic(""); // Assuming this stops the music and sets isPlaying to false
   } else {
+    setShowTooltip(false);
     console.log("Playing music" + audioId);
     playMusic(audioId); // Assuming this starts the music and sets isPlaying to true
     audioElement.play();
@@ -63,6 +67,11 @@ export const Country = ({
       className="country"
       data-no-dnd="true"
     >
+       {index === 0 && showTooltip && (
+        <div className="tooltip">
+          Tap here
+        </div>
+      )}
       <button type="button" className="number" onClick={handleClick}>
         {isPlaying ? <IoMdPause /> : index + 1}
       </button>

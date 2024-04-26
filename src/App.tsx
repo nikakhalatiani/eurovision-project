@@ -14,7 +14,24 @@ import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { SmartPointerSensor } from "./components/SmartPointerSensor";
 import { SmartTouchSensor } from "./components/SmartTouchSensor";
 import SendButton from "./components/SendButton";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LandingPage from './LandingPage';
+
+
 function App() {
+  // Existing App code remains here
+  return (
+    <Router basename="/eurovision-project">
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/app" element={<MainApp />} />
+      </Routes>
+    </Router>
+  );
+}
+
+
+function MainApp() {
   const firstSemiFinal = [
     { id: "CY", content: "Cyprus", music: "./music2/Cyprus1.mp3" },
     { id: "RS", content: "Serbia", music: "./music2/Serbia.mp3" },
@@ -71,6 +88,9 @@ function App() {
 
   const [items, setItems] = useState(firstSemiFinal);
   const [playingMusicId, setPlayingMusicId] = useState<string | null>(null);
+  const hasPlayedMusic = playingMusicId !== null;
+  const [showTooltip, setShowTooltip] = useState(false);
+
 
 
   // useEffect(() => {
@@ -101,6 +121,11 @@ function App() {
   };
 
   const handleSubmission = () => {
+    if (!hasPlayedMusic) { 
+      alert("Find hidden music player before submitting your vote!");
+      setShowTooltip(true);
+      return; // Exit the function to prevent further execution until music is played
+    }
  
     const elementsToAnimate = document.querySelectorAll('.country:not(:nth-child(-n+10))');
 
@@ -171,7 +196,8 @@ function App() {
         onDragEnd={handleDragEnd}
         sensors={sensors}
       >
-        <Column items={items} playMusic={playMusic} playingMusicId={playingMusicId} />
+        <Column items={items} playMusic={playMusic} playingMusicId={playingMusicId}     showTooltip={showTooltip} 
+          setShowTooltip={setShowTooltip} />
       </DndContext>
       <SendButton handleSubmission={handleSubmission}></SendButton>
     </div>

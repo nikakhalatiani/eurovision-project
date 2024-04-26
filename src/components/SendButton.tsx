@@ -9,7 +9,7 @@ const SendButton: React.FC<SendButtonProps> = ({
     handleSubmission
 }) => {
     return (
-        <button type="button" onClick={handleSubmission} className='s-button'>Send</button>
+        <button type="button" onClick={handleSubmission} className='s-button'>Lock in Top 10</button>
     );
 };
 

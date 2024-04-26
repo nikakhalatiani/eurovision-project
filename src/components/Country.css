@@ -110,3 +110,30 @@ button:focus {
     animation: fallAndFade 1s ease-in-out; /* Adjust the duration as needed */
   }
   
+
+  .tooltip {
+    position: absolute;
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    z-index: 10; /* Make sure it's above other elements */
+    white-space: nowrap; /* Prevent the tooltip from wrapping */
+    left: -20px;
+    top: -35px;
+    font:0.8rem "CodeProDemo";
+  }
+
+  
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 22px; /* Position the arrow above the bottom of the tooltip */
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  background-color: black;
+  z-index: -1;
+}
+  

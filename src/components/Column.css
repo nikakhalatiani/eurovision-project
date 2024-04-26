@@ -1,6 +1,6 @@
 .column {
     border-radius: 5px;
-    width: 80%;
+    width: 75%;
     max-width: 500px;
     display: flex;
     flex-direction: column;
