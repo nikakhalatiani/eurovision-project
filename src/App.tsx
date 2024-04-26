@@ -16,6 +16,7 @@ import { SmartTouchSensor } from "./components/SmartTouchSensor";
 import SendButton from "./components/SendButton";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './LandingPage';
+import RApp from './RApp';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/app" element={<MainApp />} />
+        <Route path="/rapp" element={<RApp />} />
       </Routes>
     </Router>
   );
@@ -95,6 +97,13 @@ function MainApp() {
   const hasPlayedMusic = playingMusicId !== null;
   const [showTooltip, setShowTooltip] = useState(false);
 
+
+  const resetItemsOrder = () => {
+    setItems(firstSemiFinal); // Reset items to default
+    localStorage.removeItem('countryItems'); // Clear the saved order from localStorage
+  };
+
+  
 
   useEffect(() => {
     // Save the items to localStorage whenever they change
@@ -199,7 +208,7 @@ function MainApp() {
   );
   return (
     <div className="App">
-      <SVGComponent></SVGComponent>
+      <SVGComponent onClick={resetItemsOrder}></SVGComponent>
       <DndContext
         collisionDetection={closestCorners}
         onDragEnd={handleDragEnd}

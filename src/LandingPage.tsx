@@ -27,7 +27,7 @@ const LandingPage = () => {
 
   const handleNavigate = () => {
     setIsLoading(true);
-    navigate('/app');
+    navigate('/rapp');
   };
 
   // Format the countdown for display
@@ -49,7 +49,7 @@ const LandingPage = () => {
       <div className='count'>{formatCountdown(countdown)} till</div>
         <div className='euro'>Eurovision 2024</div>
       <button className='try-button' onClick={handleNavigate} disabled={isLoading}>
-        {isLoading ? 'Loading...' : 'Test Now'}
+        {isLoading ? 'Loading...' : 'Test it Now'}
       </button>
         </div>
    

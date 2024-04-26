@@ -30,7 +30,7 @@ body {
 }
 
 body {
-  background: var(--custom-gradient1);
+  background: var(--custom-gradient3);
   background-size: auto 400%; /* Increase the height to 400% for a smooth loop */
   animation: bg-animation 100s linear infinite;
 }
