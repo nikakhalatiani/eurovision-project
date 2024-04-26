@@ -1,8 +1,44 @@
 .column {
-    border-radius: 5px;
-    width: 75%;
-    max-width: 500px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  border-radius: 5px;
+  width: 75%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: grab;
+}
+
+@keyframes drag {
+  0% {
+    transform: translate(0, 0);
   }
+  50% {
+    transform: translate(0px, 40px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+@keyframes updrag {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(0px, -40px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+.column > .animate-1 {
+  animation: drag 1s linear 1;
+}
+
+.column > .animate-2 {
+  animation: updrag 1s linear 1;
+}
+
+
+

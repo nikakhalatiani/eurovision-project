@@ -94,16 +94,39 @@ function MainApp() {
     return savedItems ? JSON.parse(savedItems) : firstSemiFinal;
   });  
   const [playingMusicId, setPlayingMusicId] = useState<string | null>(null);
-  const hasPlayedMusic = playingMusicId !== null;
+  const [hasPlayedMusic, setHasPlayedMusic] = useState(
+    localStorage.getItem('hasPlayedMusic') === 'true' || false
+  );
   const [showTooltip, setShowTooltip] = useState(false);
 
+  
 
   const resetItemsOrder = () => {
     setItems(firstSemiFinal); // Reset items to default
     localStorage.removeItem('countryItems'); // Clear the saved order from localStorage
   };
 
+  const [initialAnimationsPlayed, setInitialAnimationsPlayed] = useState(
+    () => localStorage.getItem('initialAnimationsPlayed') !== 'true'
+  );
+
+  useEffect(() => {
+    if (localStorage.getItem('initialAnimationsPlayed') !== 'true') {
+      // If the animations haven't been played, set the flag and let the animations play
+      localStorage.setItem('initialAnimationsPlayed', 'true');
+      // timeout
+      setTimeout(() => {
+        setInitialAnimationsPlayed(false);
+      }, 2000);
+    }
+    else{
+      setInitialAnimationsPlayed(true); // this prevents the animation from playing on subsequent renders
+    }
+  }, []);
   
+  
+
+
 
   useEffect(() => {
     // Save the items to localStorage whenever they change
@@ -128,14 +151,18 @@ function MainApp() {
     items.findIndex((item:any ) => item.id === id);
 
   const handleDragEnd = (event: any) => {
+    setInitialAnimationsPlayed(true);
+    localStorage.setItem('initialAnimationsPlayed', 'true');
     const { active, over } = event;
 
     if (!over) return; // Add this line to prevent errors when dropping outside a valid area
+    
     setItems((tasks:any) => {
       const originalPos = getCountryPos(active.id);
       const newPos = getCountryPos(over.id);
       return arrayMove(tasks, originalPos, newPos);
     });
+    
   };
 
   const handleSubmission = () => {
@@ -189,6 +216,8 @@ function MainApp() {
   }
   
   const playMusic = (id: string) => {
+    setHasPlayedMusic(true);
+    localStorage.setItem('hasPlayedMusic', 'true');
     if (playingMusicId !== id) {
       if (playingMusicId) {
         const audioElement = document.getElementById(playingMusicId) as HTMLAudioElement;
@@ -215,7 +244,8 @@ function MainApp() {
         sensors={sensors}
       >
         <Column items={items} playMusic={playMusic} playingMusicId={playingMusicId}     showTooltip={showTooltip} 
-          setShowTooltip={setShowTooltip} />
+          setShowTooltip={setShowTooltip}            initialAnimationsPlayed={initialAnimationsPlayed}
+          />
       </DndContext>
       <SendButton handleSubmission={handleSubmission}></SendButton>
     </div>

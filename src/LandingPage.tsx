@@ -18,7 +18,7 @@ const LandingPage = () => {
       setCountdown(remainingTime);
       if (remainingTime <= 0) {
         clearInterval(timer);
-        handleNavigate();
+        navigate('/rapp');
       }
     }, 1000);
 
@@ -27,7 +27,7 @@ const LandingPage = () => {
 
   const handleNavigate = () => {
     setIsLoading(true);
-    navigate('/rapp');
+    navigate('/app');
   };
 
   // Format the countdown for display

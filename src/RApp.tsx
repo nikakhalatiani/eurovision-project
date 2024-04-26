@@ -73,18 +73,37 @@ function RApp() {
   
     const [items, setItems] = useState(() => {
       // Get the saved items from localStorage if available, otherwise set a default list
-      const savedItems = localStorage.getItem('countryItems');
+      const savedItems = localStorage.getItem('RealcountryItems');
       return savedItems ? JSON.parse(savedItems) : firstSemiFinal;
     });  
     const [playingMusicId, setPlayingMusicId] = useState<string | null>(null);
-    const hasPlayedMusic = playingMusicId !== null;
+    const [hasPlayedMusic, setHasPlayedMusic] = useState(
+      localStorage.getItem('RealhasPlayedMusic') === 'true' || false
+    );
     const [showTooltip, setShowTooltip] = useState(false);
   
-    
+    const [initialAnimationsPlayed, setInitialAnimationsPlayed] = useState(
+      () => localStorage.getItem('RealinitialAnimationsPlayed') !== 'true'
+    );
+  
+    useEffect(() => {
+      if (localStorage.getItem('RealinitialAnimationsPlayed') !== 'true') {
+        // If the animations haven't been played, set the flag and let the animations play
+        localStorage.setItem('RealinitialAnimationsPlayed', 'true');
+        // timeout
+        setTimeout(() => {
+          setInitialAnimationsPlayed(false);
+        }, 2000);
+      }
+      else{
+        setInitialAnimationsPlayed(true); // this prevents the animation from playing on subsequent renders
+      }
+    }, []);
+
   
     useEffect(() => {
       // Save the items to localStorage whenever they change
-      localStorage.setItem('countryItems', JSON.stringify(items));
+      localStorage.setItem('RealcountryItems', JSON.stringify(items));
     }, [items]);
   
   
@@ -105,6 +124,8 @@ function RApp() {
       items.findIndex((item:any ) => item.id === id);
   
     const handleDragEnd = (event: any) => {
+      setInitialAnimationsPlayed(true);
+      localStorage.setItem('RealinitialAnimationsPlayed', 'true');
       const { active, over } = event;
   
       if (!over) return; // Add this line to prevent errors when dropping outside a valid area
@@ -166,6 +187,8 @@ function RApp() {
     }
     
     const playMusic = (id: string) => {
+      setHasPlayedMusic(true);
+      localStorage.setItem('RealhasPlayedMusic', 'true');
       if (playingMusicId !== id) {
         if (playingMusicId) {
           const audioElement = document.getElementById(playingMusicId) as HTMLAudioElement;
@@ -192,7 +215,7 @@ function RApp() {
           sensors={sensors}
         >
           <Column items={items} playMusic={playMusic} playingMusicId={playingMusicId}     showTooltip={showTooltip} 
-            setShowTooltip={setShowTooltip} />
+            setShowTooltip={setShowTooltip}  initialAnimationsPlayed={initialAnimationsPlayed}/>
         </DndContext>
         <SendButton handleSubmission={handleSubmission}></SendButton>
       </div>

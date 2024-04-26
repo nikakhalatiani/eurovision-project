@@ -12,6 +12,7 @@ export const Country = ({
   playMusic,
   isPlaying,
   showTooltip, setShowTooltip,
+  className,
 }: {
   id: string;
   content: string;
@@ -21,6 +22,7 @@ export const Country = ({
   isPlaying: boolean;
   showTooltip: boolean;
   setShowTooltip: (showTooltip: boolean) => void;
+  className?: string; // Add this line
 }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
@@ -58,13 +60,14 @@ export const Country = ({
 };
 
 
+
   return (
     <div
       ref={setNodeRef}
       {...attributes}
       style={style}
       {...listeners}
-      className="country"
+      className={`country ${className}`}
       data-no-dnd="true"
     >
        {index === 0 && showTooltip && (
