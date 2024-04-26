@@ -137,3 +137,8 @@ button:focus {
   z-index: -1;
 }
   
+
+.country.wrong{
+  /* transparant*/
+  opacity: 0.6;
+}

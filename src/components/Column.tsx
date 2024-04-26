@@ -2,6 +2,7 @@ type Item = {
   id: string;
   content: string;
   music: string;
+  isCorrect?: boolean;
 };
 
 type ColumnProps = {
@@ -38,7 +39,7 @@ export const Column = ({ items, playMusic, playingMusicId, showTooltip, setShowT
             showTooltip={index === 0 && showTooltip}
             setShowTooltip={setShowTooltip}
             className={index < 2 && !initialAnimationsPlayed ? 'animate-' + (index + 1) : ''}
-
+            checkmark={item.isCorrect}
           />
         ))}
       </SortableContext>

@@ -13,6 +13,7 @@ export const Country = ({
   isPlaying,
   showTooltip, setShowTooltip,
   className,
+  checkmark,
 }: {
   id: string;
   content: string;
@@ -23,6 +24,7 @@ export const Country = ({
   showTooltip: boolean;
   setShowTooltip: (showTooltip: boolean) => void;
   className?: string; // Add this line
+  checkmark?: boolean;
 }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
@@ -67,7 +69,7 @@ export const Country = ({
       {...attributes}
       style={style}
       {...listeners}
-      className={`country ${className}`}
+      className={`country ${className} ${checkmark==null?'':checkmark===true ? "" : "wrong"}`}
       data-no-dnd="true"
     >
        {index === 0 && showTooltip && (

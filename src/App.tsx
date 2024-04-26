@@ -98,12 +98,22 @@ function MainApp() {
     localStorage.getItem('hasPlayedMusic') === 'true' || false
   );
   const [showTooltip, setShowTooltip] = useState(false);
+  const [submissionDone, setSubmissionDone] = useState(
+    localStorage.getItem('submitted') === 'true' || false
+  );
+
+  const [content, setContent] = useState(
+    localStorage.getItem('submitted') === 'true' ? 'Locked in' : 'Lock in top 10'
+  );
 
   
 
   const resetItemsOrder = () => {
     setItems(firstSemiFinal); // Reset items to default
     localStorage.removeItem('countryItems'); // Clear the saved order from localStorage
+    localStorage.removeItem('submitted'); // Clear the submission flag
+    setSubmissionDone(false); // Reset the submission state
+    setContent('Lock in top 10'); // Reset the button text
   };
 
   const [initialAnimationsPlayed, setInitialAnimationsPlayed] = useState(
@@ -173,7 +183,10 @@ function MainApp() {
     }
  
     const elementsToAnimate = document.querySelectorAll('.country:not(:nth-child(-n+10))');
-
+    setSubmissionDone(true);
+    localStorage.setItem('submitted', 'true');
+    setSubmissionDone(true);
+    setContent("Locked in");
     if (elementsToAnimate.length === 0) {
       return;
     }
@@ -238,16 +251,34 @@ function MainApp() {
   return (
     <div className="App">
       <SVGComponent onClick={resetItemsOrder}></SVGComponent>
+      {submissionDone ? (
+      // If the submission is done, render the column without the DndContext
+      <Column 
+        items={items} 
+        playMusic={playMusic} 
+        playingMusicId={playingMusicId}     
+        showTooltip={showTooltip} 
+        setShowTooltip={setShowTooltip}  
+        initialAnimationsPlayed={initialAnimationsPlayed}
+      />
+    ) : (
+      // Otherwise, render it with the DndContext to allow dragging
       <DndContext
         collisionDetection={closestCorners}
         onDragEnd={handleDragEnd}
         sensors={sensors}
       >
-        <Column items={items} playMusic={playMusic} playingMusicId={playingMusicId}     showTooltip={showTooltip} 
-          setShowTooltip={setShowTooltip}            initialAnimationsPlayed={initialAnimationsPlayed}
-          />
+        <Column 
+          items={items} 
+          playMusic={playMusic} 
+          playingMusicId={playingMusicId}     
+          showTooltip={showTooltip} 
+          setShowTooltip={setShowTooltip}  
+          initialAnimationsPlayed={initialAnimationsPlayed}
+        />
       </DndContext>
-      <SendButton handleSubmission={handleSubmission}></SendButton>
+    )}
+      <SendButton handleSubmission={handleSubmission} content={content}></SendButton>
     </div>
   );
 }
