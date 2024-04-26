@@ -1,0 +1,35 @@
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    display: flex; /* Use flexbox to manage the columns */
+    pointer-events: none;
+    overflow: hidden; /* This will hide the overflow of the stacked divs */
+
+  }
+  
+  .background-column {
+    border: none; /* Ensure no border */
+    margin: 0; /* No margin */
+    padding: 0; /* No padding */
+    flex-grow: 1; /* Each column takes equal width */
+    height: 1000%; /* Full height */
+    background: var(--custom-gradient2);
+  background-size: auto 400%; /* Increase the height to 400% for a smooth loop */
+  animation: bg-animation 80s ease-in infinite;
+  display: block; /* Block level to avoid inline gaps */
+
+}
+
+@keyframes bg-animation {
+  0% {
+    background-position: 50% -300%;
+  }
+  100% {
+    background-position: 50% 100%;
+  }
+}
+
