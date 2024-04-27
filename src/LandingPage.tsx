@@ -31,16 +31,32 @@ const LandingPage = () => {
   };
 
   // Format the countdown for display
-  const formatCountdown = (time:number) => {
+  const formatCountdown = (time: number): string => {
     if (time <= 0) {
       return "0 seconds";
     }
-    const seconds = Math.floor(time / 1000 % 60);
-    const minutes = Math.floor(time / 1000 / 60 % 60);
-    const hours = Math.floor(time / 1000 / 3600 % 24);
+    const parts: string[] = [];
+    const seconds = Math.floor((time / 1000) % 60);
+    const minutes = Math.floor((time / 1000 / 60) % 60);
+    const hours = Math.floor((time / 1000 / 3600) % 24);
     const days = Math.floor(time / 1000 / 86400);
-    return `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+  
+    if (days > 0) {
+      parts.push(`${days} day${days > 1 ? 's' : ''}`);
+    }
+    if (hours > 0) {
+      parts.push(`${hours} hour${hours > 1 ? 's' : ''}`);
+    }
+    if (minutes > 0) {
+      parts.push(`${minutes} minute${minutes > 1 ? 's' : ''}`);
+    }
+    if (seconds > 0 || parts.length === 0) {
+      parts.push(`${seconds} second${seconds > 1 ? 's' : ''}`);
+    }
+  
+    return parts.join(', ');
   };
+  
 
   return (
     <div className="landing">

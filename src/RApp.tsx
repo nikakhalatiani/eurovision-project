@@ -35,16 +35,16 @@ function RApp() {
   ];
 
   const realfirstSemifinalists = [
-    { id: "PL", content: "Poland", music: "./music2/Poland.mp3" },
     { id: "HR", content: "Croatia", music: "./music2/Croatia.mp3" },
-    { id: "IS", content: "Iceland", music: "./music2/Iceland.mp3" },
-    { id: "SI", content: "Slovenia", music: "./music2/Slovenia.mp3" },
+    { id: "UA", content: "Ukraine", music: "./music2/Ukraine.mp3" },
+    { id: "LT", content: "Lithuania", music: "./music2/Lithuania.mp3" },
     { id: "FI", content: "Finland", music: "./music2/Finland.mp3" },
-    { id: "MD", content: "Moldova", music: "./music2/Moldova.mp3" },
-    { id: "AZ", content: "Azerbaijan", music: "./music2/Azerbaijan.mp3" },
-    { id: "AU", content: "Australia", music: "./music2/Australia.mp3" },
-    { id: "PT", content: "Portugal", music: "./music2/Portugal.mp3" },
+    { id: "CY", content: "Cyprus", music: "./music2/Cyprus1.mp3" },
     { id: "LU", content: "Luxembourg", music: "./music2/Luxembourg.mp3" },
+    { id: "IE", content: "Ireland", music: "./music2/Ireland.mp3" },
+    { id: "PL", content: "Poland", music: "./music2/Poland.mp3" },
+    { id: "RS", content: "Serbia", music: "./music2/Serbia.mp3" },
+    { id: "AU", content: "Australia", music: "./music2/Australia.mp3" },
   ];
 
   const secondSemiFinal = [
@@ -71,16 +71,16 @@ function RApp() {
   ];
 
   const realsecondSemifinalists = [
-    { id: "DK", content: "Denmark", music: "./music2/Denmark.mp3" },
-    { id: "AM", content: "Armenia", music: "./music2/Armenia.mp3" },
-    { id: "LV", content: "Latvia", music: "./music2/Latvia.mp3" },
-    { id: "SM", content: "San Marino", music: "./music2/SanMarino.mp3" },
-    { id: "GE", content: "Georgia", music: "./music2/Georgia.mp3" },
-    { id: "BE", content: "Belgium", music: "./music2/Belgium.mp3" },
-    { id: "EE", content: "Estonia", music: "./music2/Estonia.mp3" },
-    { id: "IL", content: "Israel", music: "./music2/Israel.mp3" },
-    { id: "NO", content: "Norway", music: "./music2/Norway.mp3" },
     { id: "NL", content: "Netherlands", music: "./music2/Netherlands.mp3" },
+    { id: "CH", content: "Switzerland", music: "./music2/Switzerland.mp3" },
+    { id: "GR", content: "Greece", music: "./music2/Greece.mp3" },
+    { id: "AM", content: "Armenia", music: "./music2/Armenia.mp3" },
+    { id: "NO", content: "Norway", music: "./music2/Norway.mp3" },
+    { id: "IL", content: "Israel", music: "./music2/Israel.mp3" },
+    { id: "BE", content: "Belgium", music: "./music2/Belgium.mp3" },
+    { id: "AT", content: "Austria", music: "./music2/Austria.mp3" },
+    { id: "EE", content: "Estonia", music: "./music2/Estonia.mp3" },
+    { id: "GE", content: "Georgia", music: "./music2/Georgia.mp3" },
   ];
 
   const finalists = [
