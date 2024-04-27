@@ -4,28 +4,63 @@ body {
 }
 
 :root {
-  --custom-gradient1: linear-gradient(
-    0deg,
-    rgba(41, 189, 212, 1) 0%,
-    rgba(102, 44, 180, 1) 25%,
-    rgba(41, 189, 212, 1) 50%,
-    rgba(232, 212, 37, 1) 75%,
-    rgba(41, 189, 212, 1) 100%
-  );
-  --custom-gradient2: linear-gradient(
-    0deg, /* Rotate to -90 degrees for upward gradient */
-    rgba(252, 128, 5, 1) 0%,
-    rgba(252, 71, 201, 1) 25%,    /* Adjust the color breakpoints */
-    rgba(247, 232, 26, 1) 50%,    /* Adjust the color breakpoints */
-    rgba(252, 71, 201, 1) 75%,    /* Adjust the color breakpoints */
-    rgba(252, 128, 5, 1) 100%
-  );
-  --custom-gradient3: linear-gradient(
-    0deg,
-    rgba(102, 44, 180, 1) 0%,
-    rgb(0, 40, 218) 50%,
-    rgba(102, 44, 180, 1) 100%
-  );
+  --custom-gradient1: repeating-linear-gradient(
+  0deg, /* Angle is set for upward gradient */
+  rgba(41, 189, 212, 1) 0%,        /* Start color */
+  rgba(102, 44, 180, 1) 8.33%,     /* Adjusted for one-third length */
+  rgba(41, 189, 212, 1) 16.66%,    /* Middle color, end of first repeat */
+  rgba(232, 212, 37, 1) 25%,       /* Adjusted for one-third length */
+  /* Repeat the sequence for the next two cycles */
+  rgba(41, 189, 212, 1) 33.33%,    /* Start second repeat */
+  rgba(102, 44, 180, 1) 41.66%,
+  rgba(41, 189, 212, 1) 50%,       /* Middle color, end of second repeat */
+  rgba(232, 212, 37, 1) 58.33%,
+  /* Start third repeat */
+  rgba(41, 189, 212, 1) 66.66%,
+  rgba(102, 44, 180, 1) 75%,
+  rgba(41, 189, 212, 1) 83.33%,    /* Middle color, end of third repeat */
+  rgba(232, 212, 37, 1) 91.66%,
+  rgba(41, 189, 212, 1) 100%       /* End color */
+);
+
+  --custom-gradient2: repeating-linear-gradient(
+  0deg, /* Angle is set for upward gradient */
+  rgba(252, 128, 5, 1) 0%,
+  rgba(252, 71, 201, 1) 8.33%,    /* Adjust the color breakpoints for one-third */
+  rgba(247, 232, 26, 1) 16.66%,   /* Adjust the color breakpoints for one-third */
+  rgba(252, 71, 201, 1) 25%,      /* Adjust the color breakpoints for one-third */
+  rgba(252, 128, 5, 1) 33.33%,    /* This completes the first cycle of the gradient */
+  /* Repeat the sequence for the next two cycles */
+  rgba(252, 71, 201, 1) 41.66%,
+  rgba(247, 232, 26, 1) 50%,
+  rgba(252, 71, 201, 1) 58.33%,
+  rgba(252, 128, 5, 1) 66.66%,
+  /* Third cycle */
+  rgba(252, 71, 201, 1) 75%,
+  rgba(247, 232, 26, 1) 83.33%,
+  rgba(252, 71, 201, 1) 91.66%,
+  rgba(252, 128, 5, 1) 100%
+);
+
+
+--custom-gradient3: repeating-linear-gradient(
+  0deg,
+  rgba(102, 44, 180, 1) 0%,        
+  rgb(0, 40, 218) 8.33%,          
+  rgba(255, 0, 255, 1) 16.66%,     
+  rgba(102, 44, 180, 1) 25%,      
+  rgb(0, 40, 218) 33.33%,          
+  rgba(255, 0, 255, 1) 41.66%,    
+  rgba(102, 44, 180, 1) 50%,      
+  rgb(0, 40, 218) 58.33%,          
+  rgba(255, 0, 255, 1) 66.66%,     
+  rgba(102, 44, 180, 1) 75%,       
+  rgb(0, 40, 218) 83.33%,       
+  rgba(255, 0, 255, 1) 91.66%,    
+  rgba(102, 44, 180, 1) 100%       
+);
+
+
 
 }
 

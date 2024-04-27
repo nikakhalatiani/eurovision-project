@@ -17,7 +17,6 @@ import SendButton from "./components/SendButton";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './LandingPage';
 import RApp from './RApp';
-import Background from "./Background";
 
 
 function App() {
@@ -251,7 +250,6 @@ function MainApp() {
   );
   return (
     <div className="App">
-      <Background />
       <SVGComponent onClick={resetItemsOrder}></SVGComponent>
       {submissionDone ? (
       // If the submission is done, render the column without the DndContext

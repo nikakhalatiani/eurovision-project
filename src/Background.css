@@ -19,7 +19,7 @@
     height: 1000%; /* Full height */
     background: var(--custom-gradient2);
   background-size: auto 400%; /* Increase the height to 400% for a smooth loop */
-  animation: bg-animation 80s ease-in infinite;
+  animation: bg-animation 100s linear infinite;
   display: block; /* Block level to avoid inline gaps */
 
 }
