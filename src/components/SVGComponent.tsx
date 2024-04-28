@@ -1,7 +1,8 @@
 import "./SVGComponent.css";
 
-const SVGComponent = (props:any) => (
-  <svg className="eurovision-logo"
+const SVGComponent = (props: any) => (
+  <svg
+    className="eurovision-logo"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 576.63 224.62"
     {...props}

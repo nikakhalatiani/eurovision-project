@@ -1,15 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import './LandingPage.css';
+import "./LandingPage.css";
 
 const LandingPage = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   // Define the target date and time
-  const targetDateTime = new Date('2024-05-07T19:00:00Z').getTime(); // Use getTime() to convert to milliseconds
+  const targetDateTime = new Date("2024-05-07T19:00:00Z").getTime(); // Use getTime() to convert to milliseconds
 
   // Calculate initial countdown value in milliseconds
-  const [countdown, setCountdown] = useState(targetDateTime - new Date().getTime());
+  const [countdown, setCountdown] = useState(
+    targetDateTime - new Date().getTime()
+  );
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -18,7 +20,7 @@ const LandingPage = () => {
       setCountdown(remainingTime);
       if (remainingTime <= 0) {
         clearInterval(timer);
-        navigate('/rapp');
+        navigate("/rapp");
       }
     }, 1000);
 
@@ -27,7 +29,7 @@ const LandingPage = () => {
 
   const handleNavigate = () => {
     setIsLoading(true);
-    navigate('/app');
+    navigate("/app");
   };
 
   // Format the countdown for display
@@ -40,35 +42,37 @@ const LandingPage = () => {
     const minutes = Math.floor((time / 1000 / 60) % 60);
     const hours = Math.floor((time / 1000 / 3600) % 24);
     const days = Math.floor(time / 1000 / 86400);
-  
+
     if (days > 0) {
-      parts.push(`${days} day${days > 1 ? 's' : ''}`);
+      parts.push(`${days} day${days > 1 ? "s" : ""}`);
     }
     if (hours > 0) {
-      parts.push(`${hours} hour${hours > 1 ? 's' : ''}`);
+      parts.push(`${hours} hour${hours > 1 ? "s" : ""}`);
     }
     if (minutes > 0) {
-      parts.push(`${minutes} minute${minutes > 1 ? 's' : ''}`);
+      parts.push(`${minutes} minute${minutes > 1 ? "s" : ""}`);
     }
     if (seconds > 0 || parts.length === 0) {
-      parts.push(`${seconds} second${seconds > 1 ? 's' : ''}`);
+      parts.push(`${seconds} second${seconds > 1 ? "s" : ""}`);
     }
-  
-    return parts.join(', ');
+
+    return parts.join(", ");
   };
-  
 
   return (
     <div className="landing">
-        <div className='parent'>
+      <div className="parent">
         <h2>Welcome to Voter</h2>
-      <div className='count'>{formatCountdown(countdown)} till</div>
-        <div className='euro'>Eurovision 2024</div>
-      <button className='try-button' onClick={handleNavigate} disabled={isLoading}>
-        {isLoading ? 'Loading...' : 'Test it Now'}
-      </button>
-        </div>
-   
+        <div className="count">{formatCountdown(countdown)} till</div>
+        <div className="euro">Eurovision 2024</div>
+        <button
+          className="try-button"
+          onClick={handleNavigate}
+          disabled={isLoading}
+        >
+          {isLoading ? "Loading..." : "Test it Now"}
+        </button>
+      </div>
     </div>
   );
 };

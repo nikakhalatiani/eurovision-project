@@ -96,6 +96,8 @@ function RApp() {
     { id: "ES", content: "Spain", music: "./music2/Spain.mp3" },
   ].concat(realfirstSemifinalists, realsecondSemifinalists);
 
+  const realFinalists = finalists;
+
   const [items, setItems] = useState(() => {
     // Get the saved items from localStorage if available, otherwise set a default list
     const savedItems = localStorage.getItem("RealcountryItems");
@@ -137,19 +139,55 @@ function RApp() {
     localStorage.setItem("RealcountryItems", JSON.stringify(items));
   }, [items]);
 
+  // Function to compare the user's guessed finalists with the actual finalists
+  const compareFinalResults = (actualFinalists: any) => {
+    const userFinalGuesses = JSON.parse(
+      localStorage.getItem("userFinal") || "[]"
+    );
+    if (!userFinalGuesses.length) {
+      alert("You have not submitted your final guesses!");
+      return;
+    }
+
+    const results = userFinalGuesses.map((guess: any) => {
+      const actualIndex = actualFinalists.findIndex(
+        (finalist: any) => finalist.id === guess.id
+      );
+      const guessIndex = userFinalGuesses.findIndex(
+        (finalist: any) => finalist.id === guess.id
+      );
+      const positionDifference = guessIndex - actualIndex;
+
+      return {
+        ...guess,
+        guess: positionDifference, // This directly shows how many positions off the guess was
+      };
+    });
+
+    setItems(results);
+  };
+
   useEffect(() => {
     const currentTime = new Date();
 
     const firstChange = new Date("2024-05-08T04:00:00Z");
-    const semifinalChange = new Date("2024-05-08T22:00:00Z");
+    const semifinalChange = new Date("2024-05-09T19:00:00Z");
     const secondChange = new Date("2024-05-10T04:00:00Z");
-    const finalChange = new Date("2024-05-10T22:00:00Z");
-    if (currentTime > finalChange) {
+    const finalChange = new Date("2024-05-11T19:00:00Z");
+    const finalResultTime = new Date("2024-05-12T04:00:00Z"); // Assuming the finals end at this time
+
+    if (currentTime > finalResultTime) {
+      if (localStorage.getItem("finalResultsCompared") !== "true") {
+        compareFinalResults(realFinalists); // Make sure `finalists` array is sorted by actual results
+        localStorage.setItem("finalResultsCompared", "true");
+      }
+    } else if (currentTime > finalChange) {
       // If after finalChange, load the finalists and reset order
       if (localStorage.getItem("finalChangeHappened") !== "true") {
         setItems(finalists);
         resetItemsOrder();
         localStorage.setItem("finalChangeHappened", "true");
+        setContent("Lock in the vote");
       }
     } else if (currentTime > secondChange) {
       // If after secondChange, compare results and lock them
@@ -181,8 +219,10 @@ function RApp() {
     //   localStorage.removeItem("semifinalChangeHappened");
     //   localStorage.removeItem("secondChangeHappened");
     //   localStorage.removeItem("finalChangeHappened");
+    //   localStorage.removeItem("userTopTen");
+    //   localStorage.removeItem("userFinal");
+    //   localStorage.removeItem("finalResultsCompared");
     // }
-  
   }, []);
 
   const resetItemsOrder = () => {
@@ -215,6 +255,13 @@ function RApp() {
     });
   };
 
+  const handleFinalSubmission = () => {
+    setSubmissionDone(true);
+    localStorage.setItem("Realsubmitted", "true");
+    setContent("Locked in");
+    localStorage.setItem("userFinal", JSON.stringify(items));
+  };
+
   const handleSubmission = () => {
     if (!hasPlayedMusic) {
       alert(
@@ -222,6 +269,11 @@ function RApp() {
       );
       setShowTooltip(true);
       return; // Exit the function to prevent further execution until music is played
+    }
+    if (content === "Locked in") return;
+    if (content === "Lock in the vote") {
+      handleFinalSubmission();
+      return;
     }
 
     const elementsToAnimate = document.querySelectorAll(
@@ -278,6 +330,7 @@ function RApp() {
     const userTopTen = JSON.parse(localStorage.getItem("userTopTen") || "[]");
     if (!userTopTen.length) {
       alert("You have not submitted your top 10!");
+      setItems(realFinalists);
       return;
     }
     const matches = userTopTen.map((entry: any) => ({

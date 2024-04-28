@@ -3,13 +3,14 @@ type Item = {
   content: string;
   music: string;
   isCorrect?: boolean;
+  guess?: number;
 };
 
 type ColumnProps = {
   items: Item[];
   playMusic: (music: string) => void;
   playingMusicId: string | null;
-  showTooltip : boolean;
+  showTooltip: boolean;
   setShowTooltip: (showTooltip: boolean) => void;
   initialAnimationsPlayed: boolean;
 };
@@ -21,9 +22,14 @@ import {
 import "./Column.css";
 import { Country } from "./Country.tsx";
 
-export const Column = ({ items, playMusic, playingMusicId, showTooltip, setShowTooltip, initialAnimationsPlayed}: ColumnProps) => {
-
- 
+export const Column = ({
+  items,
+  playMusic,
+  playingMusicId,
+  showTooltip,
+  setShowTooltip,
+  initialAnimationsPlayed,
+}: ColumnProps) => {
   return (
     <div className="column">
       <SortableContext items={items} strategy={verticalListSortingStrategy}>
@@ -38,8 +44,13 @@ export const Column = ({ items, playMusic, playingMusicId, showTooltip, setShowT
             isPlaying={playingMusicId === `audio-${item.id}`}
             showTooltip={index === 0 && showTooltip}
             setShowTooltip={setShowTooltip}
-            className={index < 2 && !initialAnimationsPlayed ? 'animate-' + (index + 1) : ''}
+            className={
+              index < 2 && !initialAnimationsPlayed
+                ? "animate-" + (index + 1)
+                : ""
+            }
             checkmark={item.isCorrect}
+            guess={item.guess}
           />
         ))}
       </SortableContext>

@@ -1,23 +1,23 @@
-.s-button{
-    margin-bottom: 20px;
-    color: rgba(247, 234, 26, 1);
-    background-color: rgba(252, 71, 201, 1);
-    min-width: 200px;
-    text-align: center;
-    padding-top: 8px;
-    padding-bottom: 7px;
-    height: 36px;
-    font: 1.1rem "CodeProDemo";
+.s-button {
+  margin-bottom: 20px;
+  color: rgba(247, 234, 26, 1);
+  background-color: rgba(252, 71, 201, 1);
+  min-width: 200px;
+  text-align: center;
+  padding-top: 8px;
+  padding-bottom: 7px;
+  height: 36px;
+  font: 1.1rem "CodeProDemo";
 }
 
-
-.s-button:hover,.s-button:active{
-    background-color: rgba(247, 234, 26, 1);
-    color: rgba(252, 71, 201, 1);
+.s-button:hover,
+.s-button:active {
+  background-color: rgba(247, 234, 26, 1);
+  color: rgba(252, 71, 201, 1);
 }
 
 /* add smooth transition between colors */
 
-.s-button{
-    transition: background-color 0.5s, color 0.5s,  transform 0.2s ease-out;
+.s-button {
+  transition: background-color 0.5s, color 0.5s, transform 0.2s ease-out;
 }

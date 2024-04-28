@@ -32,90 +32,39 @@ function App() {
 }
 
 function MainApp() {
-  const booksFirstSemiFinal = [
-    { id: "HR", content: "Croatia", music: "./music2/Croatia.mp3" },
-    { id: "UA", content: "Ukraine", music: "./music2/Ukraine.mp3" },
-    { id: "LT", content: "Lithuania", music: "./music2/Lithuania.mp3" },
-    { id: "FI", content: "Finland", music: "./music2/Finland.mp3" },
-    { id: "CY", content: "Cyprus", music: "./music2/Cyprus1.mp3" },
-    { id: "LU", content: "Luxembourg", music: "./music2/Luxembourg.mp3" },
-    { id: "IE", content: "Ireland", music: "./music2/Ireland.mp3" },
-    { id: "PL", content: "Poland", music: "./music2/Poland.mp3" },
-    { id: "RS", content: "Serbia", music: "./music2/Serbia.mp3" },
-    { id: "AU", content: "Australia", music: "./music2/Australia.mp3" },
-  ];
-
-  const firstSemiFinal = [
-    { id: "CY", content: "Cyprus", music: "./music2/Cyprus1.mp3" },
-    { id: "RS", content: "Serbia", music: "./music2/Serbia.mp3" },
-    { id: "LT", content: "Lithuania", music: "./music2/Lithuania.mp3" },
-    { id: "IE", content: "Ireland", music: "./music2/Ireland.mp3" },
-    { id: "UA", content: "Ukraine", music: "./music2/Ukraine.mp3" },
-    { id: "PL", content: "Poland", music: "./music2/Poland.mp3" },
-    { id: "HR", content: "Croatia", music: "./music2/Croatia.mp3" },
-    { id: "IS", content: "Iceland", music: "./music2/Iceland.mp3" },
-    { id: "SI", content: "Slovenia", music: "./music2/Slovenia.mp3" },
-    { id: "FI", content: "Finland", music: "./music2/Finland.mp3" },
-    { id: "MD", content: "Moldova", music: "./music2/Moldova.mp3" },
-    { id: "AZ", content: "Azerbaijan", music: "./music2/Azerbaijan.mp3" },
-    { id: "AU", content: "Australia", music: "./music2/Australia.mp3" },
-    { id: "PT", content: "Portugal", music: "./music2/Portugal.mp3" },
-    { id: "LU", content: "Luxembourg", music: "./music2/Luxembourg.mp3" },
-  ];
-
-  const booksSecondSemiFinal = [
-    { id: "NL", content: "Netherlands", music: "./music2/Netherlands.mp3" },
-    { id: "CH", content: "Switzerland", music: "./music2/Switzerland.mp3" },
-    { id: "GR", content: "Greece", music: "./music2/Greece.mp3" },
-    { id: "AM", content: "Armenia", music: "./music2/Armenia.mp3" },
-    { id: "NO", content: "Norway", music: "./music2/Norway.mp3" },
-    { id: "IL", content: "Israel", music: "./music2/Israel.mp3" },
-    { id: "BE", content: "Belgium", music: "./music2/Belgium.mp3" },
-    { id: "AT", content: "Austria", music: "./music2/Austria.mp3" },
-    { id: "EE", content: "Estonia", music: "./music2/Estonia.mp3" },
-    { id: "GE", content: "Georgia", music: "./music2/Georgia.mp3" },
-  ];
-
   const secondSemiFinal = [
-    { id: "MT", content: "Malta", music: "./music2/Malta.mp3" },
-    { id: "AL", content: "Albania", music: "./music2/Albania.mp3" },
-    { id: "GR", content: "Greece", music: "./music2/Greece.mp3" },
-    { id: "CH", content: "Switzerland ", music: "./music2/Switzerland.mp3" },
-    {
-      id: "CZ",
-      content: "Czech Republic",
-      music: "./music2/CzechRepublic.mp3",
-    },
-    { id: "AT", content: "Austria", music: "./music2/Austria.mp3" },
-    { id: "DK", content: "Denmark", music: "./music2/Denmark.mp3" },
-    { id: "AM", content: "Armenia", music: "./music2/Armenia.mp3" },
-    { id: "LV", content: "Latvia", music: "./music2/Latvia.mp3" },
-    { id: "SM", content: "San Marino", music: "./music2/SanMarino.mp3" },
-    { id: "GE", content: "Georgia", music: "./music2/Georgia.mp3" },
-    { id: "BE", content: "Belgium", music: "./music2/Belgium.mp3" },
-    { id: "EE", content: "Estonia", music: "./music2/Estonia.mp3" },
-    { id: "IL", content: "Israel", music: "./music2/Israel.mp3" },
-    { id: "NO", content: "Norway", music: "./music2/Norway.mp3" },
-    { id: "NL", content: "Netherlands", music: "./music2/Netherlands.mp3" },
-  ];
-
-  const finalists = [
-    { id: "SE", content: "Sweden", music: "./music2/Sweden.mp3" },
-    { id: "FR", content: "France", music: "./music2/France.mp3" },
-    { id: "IT", content: "Italy", music: "./music2/Italy.mp3" },
     {
       id: "GB",
       content: "United Kingdom",
       music: "./music2/UnitedKingdom.mp3",
     },
-    { id: "DE", content: "Germany", music: "./music2/Germany.mp3" },
-    { id: "ES", content: "Spain", music: "./music2/Spain.mp3" },
-  ].concat(booksFirstSemiFinal, booksSecondSemiFinal);
+    { id: "FI", content: "Finland", music: "./music2/Finland.mp3" },
+
+    { id: "RS", content: "Serbia", music: "./music2/Serbia.mp3" },
+
+    { id: "GR", content: "Greece", music: "./music2/Greece.mp3" },
+  ];
+
+  const firstSemiFinal = [
+    { id: "NL", content: "Netherlands", music: "./music2/Netherlands.mp3" },
+    { id: "CH", content: "Switzerland ", music: "./music2/Switzerland.mp3" },
+    { id: "LU", content: "Luxembourg", music: "./music2/Luxembourg.mp3" },
+    { id: "IT", content: "Italy", music: "./music2/Italy.mp3" },
+    { id: "UA", content: "Ukraine", music: "./music2/Ukraine.mp3" },
+    { id: "AZ", content: "Azerbaijan", music: "./music2/Azerbaijan.mp3" },
+    { id: "BE", content: "Belgium", music: "./music2/Belgium.mp3" },
+    { id: "FR", content: "France", music: "./music2/France.mp3" },
+    { id: "LV", content: "Latvia", music: "./music2/Latvia.mp3" },
+    { id: "GE", content: "Georgia", music: "./music2/Georgia.mp3" },
+    { id: "IL", content: "Israel", music: "./music2/Israel.mp3" },
+  ];
 
   const [items, setItems] = useState(() => {
     // Get the saved items from localStorage if available, otherwise set a default list
     const savedItems = localStorage.getItem("countryItems");
-    return savedItems ? JSON.parse(savedItems) : firstSemiFinal.concat(secondSemiFinal);
+    return savedItems
+      ? JSON.parse(savedItems)
+      : firstSemiFinal.concat(secondSemiFinal);
   });
   const [playingMusicId, setPlayingMusicId] = useState<string | null>(null);
   const [hasPlayedMusic, setHasPlayedMusic] = useState(
@@ -133,13 +82,13 @@ function MainApp() {
   );
 
   const resetItemsOrder = () => {
-    if (localStorage.getItem("testFinalChangeHappened") === "true") {
-      setItems(finalists); // Reset items to default
-    }else if (localStorage.getItem("testSemifinalChangeHappened") === "true") {
-      setItems(secondSemiFinal); // Reset items to default
-    }else{
+    // if (localStorage.getItem("testFinalChangeHappened") === "true") {
+    //   setItems(finalists); // Reset items to default
+    // }else if (localStorage.getItem("testSemifinalChangeHappened") === "true") {
+    //   setItems(secondSemiFinal); // Reset items to default
+    // }else{
     setItems(firstSemiFinal.concat(secondSemiFinal)); // Reset items to default
-    }
+    // }
     localStorage.removeItem("countryItems"); // Clear the saved order from localStorage
     localStorage.removeItem("submitted"); // Clear the submission flag
     setSubmissionDone(false); // Reset the submission state
@@ -168,30 +117,30 @@ function MainApp() {
     localStorage.setItem("countryItems", JSON.stringify(items));
   }, [items]);
 
-  useEffect(() => {
-    const semifinalChange = new Date("2024-05-08T04:00:00Z");
-    const finalChange = new Date("2024-05-10T04:00:00Z");
-    const currentTime = new Date();
-    if (currentTime > finalChange) {
-      console.log("final change");
-      // If after finalChange, load the finalists and reset order
-      if (localStorage.getItem("testFinalChangeHappened") !== "true") {
-        console.log("final change happened");
-        resetItemsOrder();
-        setItems(finalists);
-        localStorage.setItem("testFinalChangeHappened", "true");
-      }
-    } else if (currentTime > semifinalChange) {
-      console.log("semi change");
-      // If after semifinalChange, load the second semifinal and reset order
-      if (localStorage.getItem("testSemifinalChangeHappened") !== "true") {
-        console.log("semi change happened");
-        resetItemsOrder();
-        setItems(secondSemiFinal);
-        localStorage.setItem("testSemifinalChangeHappened", "true");
-      }
-    } 
-  }, []);
+  // useEffect(() => {
+  //   const semifinalChange = new Date("2024-05-08T04:00:00Z");
+  //   const finalChange = new Date("2024-05-10T04:00:00Z");
+  //   const currentTime = new Date();
+  //   if (currentTime > finalChange) {
+  //     console.log("final change");
+  //     // If after finalChange, load the finalists and reset order
+  //     if (localStorage.getItem("testFinalChangeHappened") !== "true") {
+  //       console.log("final change happened");
+  //       resetItemsOrder();
+  //       setItems(finalists);
+  //       localStorage.setItem("testFinalChangeHappened", "true");
+  //     }
+  //   } else if (currentTime > semifinalChange) {
+  //     console.log("semi change");
+  //     // If after semifinalChange, load the second semifinal and reset order
+  //     if (localStorage.getItem("testSemifinalChangeHappened") !== "true") {
+  //       console.log("semi change happened");
+  //       resetItemsOrder();
+  //       setItems(secondSemiFinal);
+  //       localStorage.setItem("testSemifinalChangeHappened", "true");
+  //     }
+  //   }
+  // }, []);
 
   const getCountryPos = (id: string) =>
     items.findIndex((item: any) => item.id === id);
