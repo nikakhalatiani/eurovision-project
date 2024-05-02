@@ -215,11 +215,11 @@ function RApp() {
         localStorage.setItem("firstChangeHappened", "true");
       }
     }
-    else {
-      setItems(firstSemiFinal);
-      resetItemsOrder();
-      localStorage.clear();
-    }
+    // else {
+    //   setItems(firstSemiFinal);
+    //   resetItemsOrder();
+    //   localStorage.clear();
+    // }
   }, []);
 
   const resetItemsOrder = () => {
