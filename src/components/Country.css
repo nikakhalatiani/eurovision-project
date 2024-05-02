@@ -149,262 +149,8 @@ button:focus {
   text-shadow: 0 0 2px rgb(106, 178, 84);
 }
 
-/* Higher guesses */
-.country.lower {
-  opacity: 0.7;
-}
-
-/* Lower guesses */
-.country.higher {
-  opacity: 0.7;
-}
-
 .country.higher::after {
   text-shadow: 0 0 2px rgb(248, 55, 55);
-}
-
-.country.h-1::after {
-  content: "down by 1";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-2::after {
-  content: "down by 2";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-3::after {
-  content: "down by 3";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-4::after {
-  content: "down by 4";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-5::after {
-  content: "down by 5";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-6::after {
-  content: "down by 6";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-7::after {
-  content: "down by 7";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-8::after {
-  content: "down by 8";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-9::after {
-  content: "down by 9";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-10::after {
-  content: "down by 10";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-11::after {
-  content: "down by 11";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-12::after {
-  content: "down by 12";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-13::after {
-  content: "down by 13";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-14::after {
-  content: "down by 14";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-15::after {
-  content: "down by 15";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-16::after {
-  content: "down by 16";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-17::after {
-  content: "down by 17";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-18::after {
-  content: "down by 18";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-19::after {
-  content: "down by 19";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-20::after {
-  content: "down by 20";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-21::after {
-  content: "down by 21";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-22::after {
-  content: "down by 22";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-23::after {
-  content: "down by 23";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-24::after {
-  content: "down by 24";
-  font-size: 1.1rem;
-  color: rgb(239, 21, 21);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-.country.h-25::after {
-  content: "down by 25";
   font-size: 1.1rem;
   color: rgb(239, 21, 21);
   position: absolute;
@@ -415,254 +161,213 @@ button:focus {
 
 .country.lower::after {
   text-shadow: 0 0 2px rgb(201, 198, 4);
-}
-
-.country.l1::after {
-  content: "up by 1";
   font-size: 1.1rem;
   color: rgb(248, 255, 39);
   position: absolute;
   right: 10px;
   top: 52%;
   transform: translateY(-50%);
+}
+
+.country.h-1::after {
+  content: "down by 1";
+}
+
+.country.h-2::after {
+  content: "down by 2";
+}
+
+.country.h-3::after {
+  content: "down by 3";
+}
+
+.country.h-4::after {
+  content: "down by 4";
+}
+
+.country.h-5::after {
+  content: "down by 5";
+}
+
+.country.h-6::after {
+  content: "down by 6";
+}
+
+.country.h-7::after {
+  content: "down by 7";
+}
+
+.country.h-8::after {
+  content: "down by 8";
+}
+
+.country.h-9::after {
+  content: "down by 9";
+}
+
+.country.h-10::after {
+  content: "down by 10";
+}
+
+.country.h-11::after {
+  content: "down by 11";
+}
+
+.country.h-12::after {
+  content: "down by 12";
+}
+
+.country.h-13::after {
+  content: "down by 13";
+}
+
+.country.h-14::after {
+  content: "down by 14";
+}
+
+.country.h-15::after {
+  content: "down by 15";
+}
+
+.country.h-16::after {
+  content: "down by 16";
+}
+
+.country.h-17::after {
+  content: "down by 17";
+}
+
+.country.h-18::after {
+  content: "down by 18";
+}
+
+.country.h-19::after {
+  content: "down by 19";
+}
+
+.country.h-20::after {
+  content: "down by 20";
+}
+
+.country.h-21::after {
+  content: "down by 21";
+}
+
+.country.h-22::after {
+  content: "down by 22";
+}
+
+.country.h-23::after {
+  content: "down by 23";
+}
+
+.country.h-24::after {
+  content: "down by 24";
+}
+
+.country.h-25::after {
+  content: "down by 25";
+}
+
+
+
+.country.l1::after {
+  content: "up by 1";
 }
 
 .country.l2::after {
   content: "up by 2";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l3::after {
   content: "up by 3";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l4::after {
   content: "up by 4";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l5::after {
   content: "up by 5";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l6::after {
   content: "up by 6";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l7::after {
   content: "up by 7";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l8::after {
   content: "up by 8";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l9::after {
   content: "up by 9";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l10::after {
   content: "up by 10";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l11::after {
   content: "up by 11";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l12::after {
   content: "up by 12";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l13::after {
   content: "up by 13";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l14::after {
   content: "up by 14";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l15::after {
   content: "up by 15";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l16::after {
   content: "up by 16";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l17::after {
   content: "up by 17";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l18::after {
   content: "up by 18";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l19::after {
   content: "up by 19";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l20::after {
   content: "up by 20";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l21::after {
   content: "up by 21";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l22::after {
   content: "up by 22";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l23::after {
   content: "up by 23";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l24::after {
   content: "up by 24";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
 
 .country.l25::after {
   content: "up by 25";
-  font-size: 1.1rem;
-  color: rgb(248, 255, 39);
-  position: absolute;
-  right: 10px;
-  top: 52%;
-  transform: translateY(-50%);
 }
+

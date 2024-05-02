@@ -15,6 +15,14 @@ import { SmartPointerSensor } from "./components/SmartPointerSensor";
 import { SmartTouchSensor } from "./components/SmartTouchSensor";
 import SendButton from "./components/SendButton";
 
+type Item = {
+  id: string;
+  content: string;
+  music: string;
+  isCorrect?: boolean;
+  guess?: number;
+};
+
 function RApp() {
   const firstSemiFinal = [
     { id: "CY", content: "Cyprus", music: "./music2/Cyprus1.mp3" },
@@ -118,6 +126,7 @@ function RApp() {
   const [content, setContent] = useState(
     localStorage.getItem("Realsubmitted") === "true"
       ? "Locked in"
+      : localStorage.getItem("finalChangeHappened") === "true"? "Lock in the vote"
       : "Lock in top 10"
   );
 
@@ -140,7 +149,7 @@ function RApp() {
   }, [items]);
 
   // Function to compare the user's guessed finalists with the actual finalists
-  const compareFinalResults = (actualFinalists: any) => {
+  const compareFinalResults = (actualFinalists: Item[]) => {
     const userFinalGuesses = JSON.parse(
       localStorage.getItem("userFinal") || "[]"
     );
@@ -149,12 +158,12 @@ function RApp() {
       return;
     }
 
-    const results = userFinalGuesses.map((guess: any) => {
+    const results = userFinalGuesses.map((guess: Item) => {
       const actualIndex = actualFinalists.findIndex(
-        (finalist: any) => finalist.id === guess.id
+        (finalist: Item) => finalist.id === guess.id
       );
       const guessIndex = userFinalGuesses.findIndex(
-        (finalist: any) => finalist.id === guess.id
+        (finalist: Item) => finalist.id === guess.id
       );
       const positionDifference = guessIndex - actualIndex;
 
@@ -169,20 +178,18 @@ function RApp() {
 
   useEffect(() => {
     const currentTime = new Date();
-
-    const firstChange = new Date("2024-05-08T04:00:00Z");
+    const firstChange = new Date("2024-05-08T04:00:00Z"); 
     const semifinalChange = new Date("2024-05-09T19:00:00Z");
     const secondChange = new Date("2024-05-10T04:00:00Z");
     const finalChange = new Date("2024-05-11T19:00:00Z");
-    const finalResultTime = new Date("2024-05-12T04:00:00Z"); // Assuming the finals end at this time
+    const finalResultTime = new Date("2024-05-12T04:00:00Z"); 
 
     if (currentTime > finalResultTime) {
       if (localStorage.getItem("finalResultsCompared") !== "true") {
-        compareFinalResults(realFinalists); // Make sure `finalists` array is sorted by actual results
+        compareFinalResults(realFinalists); 
         localStorage.setItem("finalResultsCompared", "true");
       }
     } else if (currentTime > finalChange) {
-      // If after finalChange, load the finalists and reset order
       if (localStorage.getItem("finalChangeHappened") !== "true") {
         setItems(finalists);
         resetItemsOrder();
@@ -190,69 +197,43 @@ function RApp() {
         setContent("Lock in the vote");
       }
     } else if (currentTime > secondChange) {
-      // If after secondChange, compare results and lock them
       if (localStorage.getItem("secondChangeHappened") !== "true") {
         compareResults(realsecondSemifinalists);
         handleLock();
         localStorage.setItem("secondChangeHappened", "true");
       }
     } else if (currentTime > semifinalChange) {
-      // If after semifinalChange, load the second semifinal and reset order
       if (localStorage.getItem("semifinalChangeHappened") !== "true") {
         setItems(secondSemiFinal);
         resetItemsOrder();
         localStorage.setItem("semifinalChangeHappened", "true");
       }
     } else if (currentTime > firstChange) {
-      // If after firstChange, compare results and lock them
       if (localStorage.getItem("firstChangeHappened") !== "true") {
         compareResults(realfirstSemifinalists);
         handleLock();
         localStorage.setItem("firstChangeHappened", "true");
       }
     }
-    // else {
-    //   // If before firstChange, load the first semifinal and reset order
-    //   setItems(firstSemiFinal);
-    //   resetItemsOrder();
-    //   localStorage.removeItem("firstChangeHappened");
-    //   localStorage.removeItem("semifinalChangeHappened");
-    //   localStorage.removeItem("secondChangeHappened");
-    //   localStorage.removeItem("finalChangeHappened");
-    //   localStorage.removeItem("userTopTen");
-    //   localStorage.removeItem("userFinal");
-    //   localStorage.removeItem("finalResultsCompared");
-    // }
+    else {
+      setItems(firstSemiFinal);
+      resetItemsOrder();
+      localStorage.clear();
+    }
   }, []);
 
   const resetItemsOrder = () => {
-    localStorage.removeItem("RealcountryItems"); // Clear the saved order from localStorage
-    localStorage.removeItem("Realsubmitted"); // Clear the submission flag
-    setSubmissionDone(false); // Reset the submission state
-    setContent("Lock in top 10"); // Reset the button text
-    localStorage.removeItem("userTopTen"); // Clear the music flag
+    localStorage.removeItem("RealcountryItems"); 
+    localStorage.removeItem("Realsubmitted"); 
+    localStorage.removeItem("userTopTen"); 
+    setSubmissionDone(false); 
+    setContent("Lock in top 10"); 
   };
 
   const handleLock = () => {
     setSubmissionDone(true);
     localStorage.setItem("Realsubmitted", "true");
     setContent("Locked in");
-  };
-
-  const getCountryPos = (id: string) =>
-    items.findIndex((item: any) => item.id === id);
-
-  const handleDragEnd = (event: any) => {
-    setInitialAnimationsPlayed(true);
-    localStorage.setItem("RealinitialAnimationsPlayed", "true");
-    const { active, over } = event;
-
-    if (!over) return; // Add this line to prevent errors when dropping outside a valid area
-    setItems((tasks: any) => {
-      const originalPos = getCountryPos(active.id);
-      const newPos = getCountryPos(over.id);
-      return arrayMove(tasks, originalPos, newPos);
-    });
   };
 
   const handleFinalSubmission = () => {
@@ -262,33 +243,48 @@ function RApp() {
     localStorage.setItem("userFinal", JSON.stringify(items));
   };
 
+  const getCountryPos = (id: string) =>
+    items.findIndex((item: Item) => item.id === id);
+
+  const handleDragEnd = (event: any) => {
+    setInitialAnimationsPlayed(true);
+    localStorage.setItem("RealinitialAnimationsPlayed", "true");
+    const { active, over } = event;
+
+    if (!over) return; // prevent errors when dropping outside a valid area
+    setItems((tasks: Item[]) => {
+      const originalPos = getCountryPos(active.id);
+      const newPos = getCountryPos(over.id);
+      return arrayMove(tasks, originalPos, newPos);
+    });
+  };
+
+
   const handleSubmission = () => {
     if (!hasPlayedMusic) {
       alert(
         "Find hidden music player before submitting your vote. There is no going back!"
       );
       setShowTooltip(true);
-      return; // Exit the function to prevent further execution until music is played
+      return; 
     }
     if (content === "Locked in") return;
     if (content === "Lock in the vote") {
       handleFinalSubmission();
       return;
     }
+    
+    handleLock();
 
     const elementsToAnimate = document.querySelectorAll(
-      ".country:not(:nth-child(-n+10))"
+      ".country:not(:nth-child(-n+10))" // Select all countries except the first 10
     );
-    setSubmissionDone(true);
-    localStorage.setItem("Realsubmitted", "true");
-    setContent("Locked in");
     if (elementsToAnimate.length === 0) {
       return;
     }
+
     localStorage.setItem("userTopTen", JSON.stringify(items.slice(0, 10)));
     let country = playingMusicId?.slice(6);
-    console.log(country);
-    // check if the country is in the top 10
     let isCountryInTop10 = false;
     for (let i = 0; i < 10; i++) {
       if (items[i].id === country) {
@@ -300,43 +296,35 @@ function RApp() {
       playMusic("");
     }
 
-    // Assuming each country has equal height or you calculate this dynamically
     const totalHeight = Array.from(elementsToAnimate).reduce(
       (acc, el) => acc + (el as HTMLElement).offsetHeight,
       0
     );
-
-    // Apply the animation class to these elements
     elementsToAnimate.forEach((el) => el.classList.add("fallAndFade"));
 
-    // Move the SendButton up by adjusting its style
-    // This example assumes you've wrapped your SendButton in a div with a class for easy targeting
     const sendButton = document.querySelector(".s-button") as HTMLElement;
     if (sendButton) {
       sendButton.style.transform = `translateY(${totalHeight}px)`;
     }
 
-    // Wait for the animation to complete before updating the state
     setTimeout(() => {
-      setItems(items.slice(0, 10)); // Only keep the first 10 items
-      // Optionally reset the SendButton's position after the state update if needed
+      setItems(items.slice(0, 10)); 
       if (sendButton) {
         sendButton.style.transform = ``;
       }
-    }, 1000); // This duration should match the duration of the CSS animation
+    }, 1000); 
   };
 
-  const compareResults = (realSemifinalists: any) => {
+  const compareResults = (realSemifinalists: Item[]) => {
     const userTopTen = JSON.parse(localStorage.getItem("userTopTen") || "[]");
     if (!userTopTen.length) {
       alert("You have not submitted your top 10!");
-      setItems(realFinalists);
       return;
     }
-    const matches = userTopTen.map((entry: any) => ({
+    const matches = userTopTen.map((entry: Item) => ({
       ...entry,
       isCorrect: realSemifinalists.some(
-        (finalist: any) => finalist.id === entry.id
+        (finalist: Item) => finalist.id === entry.id
       ),
     }));
     setItems(matches);
@@ -378,7 +366,6 @@ function RApp() {
           initialAnimationsPlayed={initialAnimationsPlayed}
         />
       ) : (
-        // Otherwise, render it with the DndContext to allow dragging
         <DndContext
           collisionDetection={closestCorners}
           onDragEnd={handleDragEnd}
