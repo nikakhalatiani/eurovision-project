@@ -50,9 +50,9 @@ function RApp() {
     { id: "CY", content: "Cyprus", music: "./music2/Cyprus1.mp3" },
     { id: "LU", content: "Luxembourg", music: "./music2/Luxembourg.mp3" },
     { id: "IE", content: "Ireland", music: "./music2/Ireland.mp3" },
-    { id: "PL", content: "Poland", music: "./music2/Poland.mp3" },
     { id: "RS", content: "Serbia", music: "./music2/Serbia.mp3" },
-    { id: "AU", content: "Australia", music: "./music2/Australia.mp3" },
+    { id: "SI", content: "Slovenia", music: "./music2/Slovenia.mp3" },
+  { id: "PT", content: "Portugal", music: "./music2/Portugal.mp3"},
   ];
 
   const secondSemiFinal = [
