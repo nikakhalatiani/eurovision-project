@@ -85,10 +85,10 @@ function RApp() {
     { id: "AM", content: "Armenia", music: "./music2/Armenia.mp3" },
     { id: "NO", content: "Norway", music: "./music2/Norway.mp3" },
     { id: "IL", content: "Israel", music: "./music2/Israel.mp3" },
-    { id: "BE", content: "Belgium", music: "./music2/Belgium.mp3" },
     { id: "AT", content: "Austria", music: "./music2/Austria.mp3" },
     { id: "EE", content: "Estonia", music: "./music2/Estonia.mp3" },
     { id: "GE", content: "Georgia", music: "./music2/Georgia.mp3" },
+    { id: "LV", content: "Latvia", music: "./music2/Latvia.mp3" },
   ];
 
   const finalists = [
