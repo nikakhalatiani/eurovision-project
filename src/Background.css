@@ -16,7 +16,7 @@
   padding: 0; /* No padding */
   flex-grow: 1; /* Each column takes equal width */
   height: 1000%; /* Full height */
-  background: var(--custom-gradient2);
+  background: var(--custom-gradient3);
   background-size: auto 400%; /* Increase the height to 400% for a smooth loop */
   animation: bg-animation 100s linear infinite;
   display: block; /* Block level to avoid inline gaps */

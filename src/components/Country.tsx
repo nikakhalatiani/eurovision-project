@@ -87,7 +87,7 @@ export const Country = ({
     >
       {index === 0 && showTooltip && <div className="tooltip">Tap here</div>}
       <button type="button" className="number" onClick={handleClick}>
-        {isPlaying ? <IoMdPause /> : index + 1}
+        {isPlaying ? <IoMdPause onClick={handleClick} /> : index + 1}
       </button>
 
       <div className="content">
