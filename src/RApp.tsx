@@ -93,18 +93,59 @@ function RApp() {
 
   const finalists = [
     { id: "SE", content: "Sweden", music: "./music2/Sweden.mp3" },
-    { id: "FR", content: "France", music: "./music2/France.mp3" },
-    { id: "IT", content: "Italy", music: "./music2/Italy.mp3" },
-    {
-      id: "GB",
-      content: "United Kingdom",
-      music: "./music2/UnitedKingdom.mp3",
-    },
+    { id: "UA", content: "Ukraine", music: "./music2/Ukraine.mp3" },
     { id: "DE", content: "Germany", music: "./music2/Germany.mp3" },
+    { id: "LU", content: "Luxembourg", music: "./music2/Luxembourg.mp3" },
+    { id: "IL", content: "Israel", music: "./music2/Israel.mp3" },
+    { id: "LT", content: "Lithuania", music: "./music2/Lithuania.mp3" },
     { id: "ES", content: "Spain", music: "./music2/Spain.mp3" },
-  ].concat(realfirstSemifinalists, realsecondSemifinalists);
+    { id: "EE", content: "Estonia", music: "./music2/Estonia.mp3" },
+    { id: "IE", content: "Ireland", music: "./music2/Ireland.mp3" },
+    { id: "LV", content: "Latvia", music: "./music2/Latvia.mp3" },
+    { id: "GR", content: "Greece", music: "./music2/Greece.mp3" },
+    { id: "GB", content: "United Kingdom", music: "./music2/UnitedKingdom.mp3" },
+    { id: "NO", content: "Norway", music: "./music2/Norway.mp3" },
+    { id: "IT", content: "Italy", music: "./music2/Italy.mp3" },
+    { id: "RS", content: "Serbia", music: "./music2/Serbia.mp3" },
+    { id: "FI", content: "Finland", music: "./music2/Finland.mp3" },
+    { id: "PT", content: "Portugal", music: "./music2/Portugal.mp3" },
+    { id: "AM", content: "Armenia", music: "./music2/Armenia.mp3" },
+    { id: "CY", content: "Cyprus", music: "./music2/Cyprus1.mp3" },
+    { id: "CH", content: "Switzerland", music: "./music2/Switzerland.mp3" },
+    { id: "SI", content: "Slovenia", music: "./music2/Slovenia.mp3" },
+    { id: "HR", content: "Croatia", music: "./music2/Croatia.mp3" },
+    { id: "GE", content: "Georgia", music: "./music2/Georgia.mp3" },
+    { id: "FR", content: "France", music: "./music2/France.mp3" },
+    { id: "AT", content: "Austria", music: "./music2/Austria.mp3" },
+  ];
 
-  const realFinalists = finalists;
+    const realFinalists = [
+    { id: "HR", content: "Croatia", music: "./music2/Croatia.mp3" },
+    { id: "IL", content: "Israel", music: "./music2/Israel.mp3" },
+    { id: "CH", content: "Switzerland", music: "./music2/Switzerland.mp3" },
+    { id: "FR", content: "France", music: "./music2/France.mp3" },
+    { id: "IE", content: "Ireland", music: "./music2/Ireland.mp3" },
+    { id: "UA", content: "Ukraine", music: "./music2/Ukraine.mp3" },
+    { id: "IT", content: "Italy", music: "./music2/Italy.mp3" },
+    { id: "GR", content: "Greece", music: "./music2/Greece.mp3" },
+    { id: "FI", content: "Finland", music: "./music2/Finland.mp3" },
+    { id: "GB", content: "United Kingdom", music: "./music2/UnitedKingdom.mp3" },
+    { id: "SE", content: "Sweden", music: "./music2/Sweden.mp3" },
+    { id: "LT", content: "Lithuania", music: "./music2/Lithuania.mp3" },
+    { id: "NO", content: "Norway", music: "./music2/Norway.mp3" },
+    { id: "AT", content: "Austria", music: "./music2/Austria.mp3" },
+    { id: "AM", content: "Armenia", music: "./music2/Armenia.mp3" },
+    { id: "GE", content: "Georgia", music: "./music2/Georgia.mp3" },
+    { id: "ES", content: "Spain", music: "./music2/Spain.mp3" },
+    { id: "DE", content: "Germany", music: "./music2/Germany.mp3" },
+    { id: "CY", content: "Cyprus", music: "./music2/Cyprus1.mp3" },
+    { id: "EE", content: "Estonia", music: "./music2/Estonia.mp3" },
+    { id: "SI", content: "Slovenia", music: "./music2/Slovenia.mp3" },
+    { id: "PT", content: "Portugal", music: "./music2/Portugal.mp3" },
+    { id: "LU", content: "Luxembourg", music: "./music2/Luxembourg.mp3" },
+    { id: "RS", content: "Serbia", music: "./music2/Serbia.mp3" },
+    { id: "LV", content: "Latvia", music: "./music2/Latvia.mp3" },
+  ];
 
   const [items, setItems] = useState(() => {
     // Get the saved items from localStorage if available, otherwise set a default list
