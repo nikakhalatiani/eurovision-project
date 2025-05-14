@@ -67,7 +67,7 @@ function RApp() {
     { id: "MT", content: "Malta", music: "./music2/Malta.mp3" },            // 9th (not in original list, music path assumed)
     { id: "GE", content: "Georgia", music: "./music2/Georgia.mp3" },        // 10th (not in original list, music path assumed)
     { id: "DK", content: "Denmark", music: "./music2/Denmark.mp3" },        // 11th (not in original list, music path assumed)
-    { id: "CZ", content: "Czechia", music: "./music2/Czechia.mp3" },        // 12th (not in original list, music path assumed)
+    { id: "CZ", content: "Czechia", music: "./music2/CzechRepublic.mp3" },        // 12th (not in original list, music path assumed)
     { id: "LU", content: "Luxembourg", music: "./music2/Luxembourg.mp3" },  // 13th
     { id: "IL", content: "Israel", music: "./music2/Israel.mp3" },          // 14th (not in original list, music path assumed)
     { id: "RS", content: "Serbia", music: "./music2/Serbia.mp3" },          // 15th
@@ -80,7 +80,7 @@ function RApp() {
     { id: "FI", content: "Finland", music: "./music2/Finland.mp3" },      // Finland (Erika V)
     { id: "MT", content: "Malta", music: "./music2/Malta.mp3" },          // Malta (Miriana)
     { id: "AU", content: "Australia", music: "./music2/Australia.mp3" },  // Australia (Go-J)
-    { id: "CZ", content: "Czechia", music: "./music2/Czechia.mp3" },      // Czechia (Adon)
+    { id: "CZ", content: "Czechia", music: "./music2/CzechRepublic.mp3" },      // Czechia (Adon)
     { id: "LT", content: "Lithuania", music: "./music2/Lithuania.mp3" },  // Lithuania (Kata)
     { id: "GR", content: "Greece", music: "./music2/Greece.mp3" },        // Greece (Klavdia)
     { id: "LU", content: "Luxembourg", music: "./music2/Luxembourg.mp3" },// Luxembourg
@@ -93,7 +93,7 @@ function RApp() {
     { id: "ES", content: "Spain", music: "./music2/Spain.mp3" },
     { id: "IT", content: "Italy", music: "./music2/Italy.mp3" },
     { id: "CH", content: "Switzerland", music: "./music2/Switzerland.mp3" },
-    { id: "GB", content: "United Kingdom", music: "./music2/UK.mp3" },
+    { id: "GB", content: "United Kingdom", music: "./music2/UnitedKingdom.mp3" },
     { id: "NO", content: "Norway", music: "./music2/Norway.mp3" },        // 1st
     { id: "AL", content: "Albania", music: "./music2/Albania.mp3" },      // 2nd
     { id: "SE", content: "Sweden", music: "./music2/Sweden.mp3" },        // 3rd
@@ -112,7 +112,7 @@ function RApp() {
       { id: "ES", content: "Spain", music: "./music2/Spain.mp3" },
       { id: "IT", content: "Italy", music: "./music2/Italy.mp3" },
       { id: "CH", content: "Switzerland", music: "./music2/Switzerland.mp3" },
-      { id: "GB", content: "United Kingdom", music: "./music2/UK.mp3" },
+      { id: "GB", content: "United Kingdom", music: "./music2/UnitedKingdom.mp3" },
       { id: "NO", content: "Norway", music: "./music2/Norway.mp3" },        // 1st
       { id: "AL", content: "Albania", music: "./music2/Albania.mp3" },      // 2nd
       { id: "SE", content: "Sweden", music: "./music2/Sweden.mp3" },        // 3rd
@@ -197,11 +197,11 @@ function RApp() {
 
   useEffect(() => {
     const currentTime = new Date();
-    const firstChange = new Date("2025-05-14T19:00:00Z");
+    const firstChange = new Date("2025-05-14T04:00:00Z");
     const semifinalChange = new Date("2025-05-15T19:00:00Z");
-    const secondChange = new Date("2025-05-16T19:00:00Z");
+    const secondChange = new Date("2025-05-16T04:00:00Z");
     const finalChange = new Date("2025-05-17T19:00:00Z");
-    const finalResultTime = new Date("2025-05-18T19:00:00Z");
+    const finalResultTime = new Date("2025-05-18T06:00:00Z");
 
     if (currentTime > finalResultTime) {
       if (localStorage.getItem("finalResultsCompared") !== "true") {

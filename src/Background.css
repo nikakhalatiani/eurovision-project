@@ -1,32 +1,57 @@
-.background {
+.heart-container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: -1;
-  display: flex; /* Use flexbox to manage the columns */
-  pointer-events: none;
-  overflow: hidden; /* This will hide the overflow of the stacked divs */
+  overflow: hidden;
+  background-color: black;
 }
 
-.background-column {
-  border: none; /* Ensure no border */
-  margin: 0; /* No margin */
-  padding: 0; /* No padding */
-  flex-grow: 1; /* Each column takes equal width */
-  height: 1000%; /* Full height */
-  background: var(--custom-gradient1);
-  background-size: auto 400%; /* Increase the height to 400% for a smooth loop */
-  animation: bg-animation 100s linear infinite;
-  display: block; /* Block level to avoid inline gaps */
+.heart {
+  position: absolute;
+  width: 21px;
+  height: 21px;
+  transform-origin: center; /* Scale from the heart's center */
+  opacity: 0;
+  animation-name: pulseInPlace;
+  animation-duration: 5s;
+  animation-delay: var(--delay, 0s);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
 }
 
-@keyframes bg-animation {
+.heart.pink { color: #E954DF; }
+.heart.blue { color: #64D6D2; }
+.heart.red { color: #E53224; }
+.heart.green { color: #7BF886; }
+.heart.white { color: #FFFFFF; }
+.heart.yellow { color: #F7EA1A; }
+.heart.orange { color: #FC7F05; }
+.heart.purple { color: #A52BE8; }
+
+
+.heart svg {
+  width: 100%;
+  height: 100%;
+}
+
+.heart svg path {
+  fill: currentColor;
+}
+
+@keyframes pulseInPlace {
   0% {
-    background-position: 50% -300%;
+    transform: scale(0);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(1.4);
+    opacity: 1;
   }
   100% {
-    background-position: 50% 100%;
+    transform: scale(0);
+    opacity: 0;
   }
 }

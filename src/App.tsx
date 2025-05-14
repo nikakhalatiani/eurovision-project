@@ -33,31 +33,49 @@ function App() {
 
 function MainApp() {
   const secondSemiFinal = [
-    {
-      id: "GB",
-      content: "United Kingdom",
-      music: "./music2/UnitedKingdom.mp3",
-    },
-    { id: "FI", content: "Finland", music: "./music2/Finland.mp3" },
-
-    { id: "RS", content: "Serbia", music: "./music2/Serbia.mp3" },
-
-    { id: "GR", content: "Greece", music: "./music2/Greece.mp3" },
+    { id: "DE", content: "Germany", music: "./music2/Germany.mp3" },
+    { id: "FR", content: "France", music: "./music2/France.mp3" },
+    { id: "ES", content: "Spain", music: "./music2/Spain.mp3" },
+    { id: "IT", content: "Italy", music: "./music2/Italy.mp3" },
+    { id: "CH", content: "Switzerland", music: "./music2/Switzerland.mp3" },
+    { id: "GB", content: "United Kingdom", music: "./music2/UnitedKingdom.mp3" },
   ];
 
   const firstSemiFinal = [
-    { id: "NL", content: "Netherlands", music: "./music2/Netherlands.mp3" },
-    { id: "CH", content: "Switzerland ", music: "./music2/Switzerland.mp3" },
-    { id: "LU", content: "Luxembourg", music: "./music2/Luxembourg.mp3" },
-    { id: "IT", content: "Italy", music: "./music2/Italy.mp3" },
-    { id: "UA", content: "Ukraine", music: "./music2/Ukraine.mp3" },
-    { id: "AZ", content: "Azerbaijan", music: "./music2/Azerbaijan.mp3" },
-    { id: "BE", content: "Belgium", music: "./music2/Belgium.mp3" },
-    { id: "FR", content: "France", music: "./music2/France.mp3" },
-    { id: "LV", content: "Latvia", music: "./music2/Latvia.mp3" },
-    { id: "GE", content: "Georgia", music: "./music2/Georgia.mp3" },
-    { id: "IL", content: "Israel", music: "./music2/Israel.mp3" },
+    { id: "IS", content: "Iceland", music: "./music2/Iceland.mp3" },      // 1st
+    { id: "PL", content: "Poland", music: "./music2/Poland.mp3" },        // 2nd
+    { id: "SI", content: "Slovenia", music: "./music2/Slovenia.mp3" },    // 3rd
+    { id: "EE", content: "Estonia", music: "./music2/Estonia.mp3" },      // 4th (not in original list, music path assumed)
+    { id: "UA", content: "Ukraine", music: "./music2/Ukraine.mp3" },      // 5th
+    { id: "SE", content: "Sweden", music: "./music2/Sweden.mp3" },        // 6th (not in original list, music path assumed)
+    { id: "PT", content: "Portugal", music: "./music2/Portugal.mp3" },    // 7th
+    { id: "NO", content: "Norway", music: "./music2/Norway.mp3" },        // 8th (not in original list, music path assumed)
+    { id: "BE", content: "Belgium", music: "./music2/Belgium.mp3" },      // 9th (not in original list, music path assumed)
+    { id: "AZ", content: "Azerbaijan", music: "./music2/Azerbaijan.mp3" },// 10th
+    { id: "SM", content: "San Marino", music: "./music2/SanMarino.mp3" }, // 11th (not in original list, music path assumed)
+    { id: "AL", content: "Albania", music: "./music2/Albania.mp3" },      // 12th (not in original list, music path assumed)
+    { id: "NL", content: "Netherlands", music: "./music2/Netherlands.mp3" }, // 13th (not in original list, music path assumed)
+    { id: "HR", content: "Croatia", music: "./music2/Croatia.mp3" },      // 14th
+    { id: "CY", content: "Cyprus", music: "./music2/Cyprus1.mp3" },       // 15th
+    { id: "AU", content: "Australia", music: "./music2/Australia.mp3" },    // 1st
+    { id: "ME", content: "Montenegro", music: "./music2/Montenegro.mp3" },  // 2nd (not in original list, music path assumed)
+    { id: "IE", content: "Ireland", music: "./music2/Ireland.mp3" },        // 3rd
+    { id: "LV", content: "Latvia", music: "./music2/Latvia.mp3" },          // 4th (not in original list, music path assumed)
+    { id: "AM", content: "Armenia", music: "./music2/Armenia.mp3" },        // 5th
+    { id: "AT", content: "Austria", music: "./music2/Austria.mp3" },        // 6th (not in original list, music path assumed)
+    { id: "GR", content: "Greece", music: "./music2/Greece.mp3" },          // 7th (not in original list, music path assumed)
+    { id: "LT", content: "Lithuania", music: "./music2/Lithuania.mp3" },    // 8th
+    { id: "MT", content: "Malta", music: "./music2/Malta.mp3" },            // 9th (not in original list, music path assumed)
+    { id: "GE", content: "Georgia", music: "./music2/Georgia.mp3" },        // 10th (not in original list, music path assumed)
+    { id: "DK", content: "Denmark", music: "./music2/Denmark.mp3" },        // 11th (not in original list, music path assumed)
+    { id: "CZ", content: "Czechia", music: "./music2/CzechRepublic.mp3" },        // 12th (not in original list, music path assumed)
+    { id: "LU", content: "Luxembourg", music: "./music2/Luxembourg.mp3" },  // 13th
+    { id: "IL", content: "Israel", music: "./music2/Israel.mp3" },          // 14th (not in original list, music path assumed)
+    { id: "RS", content: "Serbia", music: "./music2/Serbia.mp3" },          // 15th
+    { id: "FI", content: "Finland", music: "./music2/Finland.mp3" },        // 16th
   ];
+
+
 
   const [items, setItems] = useState(() => {
     // Get the saved items from localStorage if available, otherwise set a default list

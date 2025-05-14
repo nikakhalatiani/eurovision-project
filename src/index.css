@@ -61,21 +61,6 @@ body {
   );
 }
 
-body {
-  background: var(--custom-gradient1);
-  background-size: auto 400%; /* Increase the height to 400% for a smooth loop */
-  animation: bg-animation 80s ease-in infinite;
-}
-
-@keyframes bg-animation {
-  0% {
-    background-position: 50% -300%;
-  }
-  100% {
-    background-position: 50% 100%;
-  }
-}
-
 body::-webkit-scrollbar {
   display: none;
 }

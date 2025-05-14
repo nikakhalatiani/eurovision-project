@@ -10,33 +10,33 @@
   align-items: center;
   color: white;
   margin-top: 170px;
-  background: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
-  border-radius: 10px; /* Optional: rounds the corners */
-  padding: 20px; /* Add some padding */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-  -webkit-backdrop-filter: blur(10px); /* For Safari compatibility */
-  backdrop-filter: blur(10px); /* Apply the blur effect */
+  background: rgba(255, 255, 255, 0.2);
+  /* Semi-transparent white background */
+  border-radius: 10px;
+  /* Optional: rounds the corners */
+  padding: 20px;
+  /* Add some padding */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Soft shadow for depth */
+  -webkit-backdrop-filter: blur(10px);
+  /* For Safari compatibility */
+  backdrop-filter: blur(10px);
+  /* Apply the blur effect */
   max-width: 700px;
 }
 
 .euro {
-  background: linear-gradient(
-    90deg,
-    rgba(234, 76, 137, 1) 0%,
-    rgba(142, 45, 226, 1) 25%,
-    rgba(155, 61, 255, 1) 50%,
-    rgba(255, 75, 31, 1) 75%,
-    rgba(234, 76, 137, 1) 100%
-  );
+  background-color: white;
   -webkit-background-clip: text;
-  color: rgba(
-    0,
-    0,
-    0,
-    0
-  ); /* Make the text color transparent to show the background */
-  background-clip: text; /* This is the standard property, though not supported in all browsers */
-  display: inline-block; /* Necessary to apply the gradient to the text */
+  color: rgba(0,
+      0,
+      0,
+      0);
+  /* Make the text color transparent to show the background */
+  background-clip: text;
+  /* This is the standard property, though not supported in all browsers */
+  display: inline-block;
+  /* Necessary to apply the gradient to the text */
   font-size: 1.3rem;
 }
 
