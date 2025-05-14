@@ -4,7 +4,7 @@ const SVGComponent = (props:any) => (
 <svg
   className="eurovision-logo"
   xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 577 229"
+    viewBox="0 0 577 240"
     {...props}
   >
     <path
