@@ -9,7 +9,7 @@ const Background: React.FC = () => {
     const w = window.innerWidth;
     const h = window.innerHeight;
     const heartSize = 21;
-    const spacing = 21; // Distance between hearts (adjust for density)
+    const spacing = 28; // Distance between hearts (adjust for density)
     const cols = Math.ceil(w / spacing);
     const rows = Math.ceil(h / spacing);
 

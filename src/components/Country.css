@@ -62,7 +62,7 @@ button:focus {
 .number {
   text-align: center;
   background-color: #64D6D2;
-  color: #E954DF;
+  color: #000000;
   overflow: hidden;
   mix-blend-mode: difference;
   font-family: "CodeProDemo";

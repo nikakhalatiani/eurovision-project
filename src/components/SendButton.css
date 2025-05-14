@@ -1,6 +1,6 @@
 .s-button {
   margin-bottom: 20px;
-  color: #E954DF;
+  color: #E53224;
   background-color: #64D6D2;;
   min-width: 200px;
   text-align: center;
@@ -12,7 +12,7 @@
 
 .s-button:hover,
 .s-button:active {
-  background-color: #E954DF;
+  background-color: #E53224;
   color: #64D6D2;
 }
 
