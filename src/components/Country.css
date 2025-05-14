@@ -33,11 +33,6 @@
   left: 0.5px;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    45deg,
-    rgba(255, 0, 255, 1),
-    rgba(0, 255, 255, 1)
-  );
   mix-blend-mode: overlay; /* This will blend the gradient with the flag */
 }
 

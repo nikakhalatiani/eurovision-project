@@ -42,8 +42,8 @@
 
 .try-button {
   margin-bottom: 20px;
-  color: rgba(247, 234, 26, 1);
-  background-color: rgba(252, 71, 201, 1);
+  color: #E954DF;
+  background-color: #64D6D2;
   font-family: "CodeProDemo";
   min-width: 200px;
   text-align: center;
@@ -55,8 +55,8 @@
 
 .try-button:hover,
 .try-button:active {
-  background-color: rgba(247, 234, 26, 1);
-  color: rgba(252, 71, 201, 1);
+  background-color: #E954DF;
+  color: #64D6D2;
   font-family: "CodeProDemo";
 }
 
