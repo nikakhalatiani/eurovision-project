@@ -6,7 +6,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   // Define the target date and time
-  const targetDateTime = new Date("2024-05-07T19:00:00Z").getTime(); // Use getTime() to convert to milliseconds
+  const targetDateTime = new Date("2025-05-12T19:00:00Z").getTime(); // Use getTime() to convert to milliseconds
 
   // Calculate initial countdown value in milliseconds
   const [countdown, setCountdown] = useState(
@@ -64,7 +64,7 @@ const LandingPage = () => {
       <div className="parent">
         <h2>Welcome to Voter</h2>
         <div className="count">{formatCountdown(countdown)} till</div>
-        <div className="euro">Eurovision 2024</div>
+        <div className="euro">Eurovision 5</div>
         <button
           className="try-button"
           onClick={handleNavigate}
