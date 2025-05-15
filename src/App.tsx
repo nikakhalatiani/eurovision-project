@@ -17,6 +17,7 @@ import SendButton from "./components/SendButton";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./LandingPage";
 import RApp from "./RApp";
+import HeartBackground from "./Background";  
 
 function App() {
   // Existing App code remains here
@@ -258,8 +259,12 @@ function MainApp() {
     useSensor(SmartTouchSensor),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
+
+  const topCountryCode = items[0]?.id ?? "CH";
+
   return (
     <div className="App">
+      <HeartBackground country={topCountryCode} />
       <SVGComponent onClick={resetItemsOrder}></SVGComponent>
       {submissionDone ? (
         // If the submission is done, render the column without the DndContext

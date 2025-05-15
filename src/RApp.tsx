@@ -14,6 +14,7 @@ import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { SmartPointerSensor } from "./components/SmartPointerSensor";
 import { SmartTouchSensor } from "./components/SmartTouchSensor";
 import SendButton from "./components/SendButton";
+import HeartBackground from "./Background"
 
 type Item = {
   id: string;
@@ -365,6 +366,7 @@ function RApp() {
       setPlayingMusicId(id);
     }
   };
+  const topCountryCode = items[0]?.id ?? "CH";
 
   const sensors = useSensors(
     useSensor(SmartPointerSensor),
@@ -372,6 +374,8 @@ function RApp() {
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
   return (
+    <>
+    <HeartBackground country={topCountryCode} />
     <div className="App">
       <SVGComponent></SVGComponent>
       {submissionDone ? (
@@ -405,6 +409,7 @@ function RApp() {
         content={content}
       ></SendButton>
     </div>
+    </>
   );
 }
 

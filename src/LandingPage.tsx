@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LandingPage.css";
+import HeartBackground from "./Background.tsx";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="landing">
+    <><HeartBackground /><div className="landing">
       <div className="parent">
         <h2>Welcome to Voter</h2>
         <div className="count">{formatCountdown(countdown)} till</div>
@@ -73,7 +74,7 @@ const LandingPage = () => {
           {isLoading ? "Loading..." : "Test it Now"}
         </button>
       </div>
-    </div>
+    </div></>
   );
 };
 
