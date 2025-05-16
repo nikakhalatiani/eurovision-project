@@ -1,3 +1,13 @@
+
+// src/Column.tsx - Optimized version
+import React, { memo } from "react";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import "./Column.css";
+import { Country } from "./Country";
+
 type Item = {
   id: string;
   content: string;
@@ -15,14 +25,8 @@ type ColumnProps = {
   initialAnimationsPlayed: boolean;
 };
 
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
-import "./Column.css";
-import { Country } from "./Country.tsx";
-
-export const Column = ({
+// Use React.memo to prevent unnecessary re-renders
+export const Column = memo(({
   items,
   playMusic,
   playingMusicId,
@@ -30,9 +34,13 @@ export const Column = ({
   setShowTooltip,
   initialAnimationsPlayed,
 }: ColumnProps) => {
+  // Create a memoized version of the items array for SortableContext
+  // This prevents unnecessary re-rendering when other props change
+  const itemIds = React.useMemo(() => items.map(item => item.id), [items]);
+  
   return (
     <div className="column">
-      <SortableContext items={items} strategy={verticalListSortingStrategy}>
+      <SortableContext items={itemIds} strategy={verticalListSortingStrategy}>
         {items.map((item, index) => (
           <Country
             key={item.id}
@@ -56,4 +64,7 @@ export const Column = ({
       </SortableContext>
     </div>
   );
-};
+});
+
+// Add display name for debugging
+Column.displayName = 'Column';

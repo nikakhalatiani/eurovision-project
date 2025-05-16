@@ -228,6 +228,34 @@
   }
 }
 
+
+/* Blue, Black, White - Estonia (EE) */
+.color-changing-blue-black-white {
+  animation-name: pulseInPlaceBlueBlackWhite;
+}
+@keyframes pulseInPlaceBlueBlackWhite {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+    color: #000000;
+  }
+  40% {
+    transform: scale(1.7);
+    opacity: 1;
+    color: #0055A4;
+  }
+  60% {
+    transform: scale(1.2);
+    opacity: 0.6;
+    color: #000000;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+    color: #0055A4;
+  }
+}
+
 /* Green, White - Ireland (IE) */
 .color-changing-green-white {
   animation-name: pulseInPlaceGreenWhite;
@@ -364,22 +392,22 @@
   25% {
     transform: scale(1.0);
     opacity: 0.7;
-    color: #FFFFFF;
+    color: #0055A4;
   }
   50% {
     transform: scale(1.7);
     opacity: 1;
-    color: #E53224;
+    color: #FFFFFF;
   }
   75% {
     transform: scale(1.0);
     opacity: 0.7;
-    color: #FFFFFF;
+    color: #E53224;
   }
   100% {
     transform: scale(0);
     opacity: 0;
-    color: #0055A4;
+    color: #E53224;
   }
 }
 
@@ -477,16 +505,16 @@
   }
 }
 
-/* Red, Blue - San Marino (SM), Haiti */
-.color-changing-red-blue {
-  animation-name: pulseInPlaceRedBlue;
+/* White, Blue - San Marino (SM) */
+.color-changing-white-blue {
+  animation-name: pulseInPlaceWhiteBlue;
 }
 
-@keyframes pulseInPlaceRedBlue {
+@keyframes pulseInPlaceWhiteBlue {
   0% {
     transform: scale(0);
     opacity: 0;
-    color: #E53224;
+    color: #FFFFFF;
   }
   40% {
     transform: scale(1.7);
@@ -496,7 +524,7 @@
   60% {
     transform: scale(1.2);
     opacity: 0.6;
-    color: #E53224;
+    color: #FFFFFF;
   }
   100% {
     transform: scale(0);
@@ -614,31 +642,36 @@
   }
 }
 
-/* Blue, White, Yellow - Armenia (AM) */
-.color-changing-blue-white-yellow {
-  animation-name: pulseInPlaceBlueWhiteYellow;
+/* Blue, Red, Orange - Armenia (AM) */
+.color-changing-blue-red-orange {
+  animation-name: pulseInPlaceBlueRedOrange;
 }
 
-@keyframes pulseInPlaceBlueWhiteYellow {
+@keyframes pulseInPlaceBlueRedOrange {
   0% {
     transform: scale(0);
     opacity: 0;
     color: #0055A4;
   }
-  25% {
-    transform: scale(1.0);
-    opacity: 0.7;
-    color: #FFFFFF;
+  20% {
+    transform: scale(0.8);
+    opacity: 0.4;
+    color: #E53224;
   }
-  50% {
+  40% {
+    transform: scale(1.2);
+    opacity: 0.7;
+    color: #fea60c;
+  }
+  60% {
     transform: scale(1.7);
     opacity: 1;
-    color: #F7EA1A;
+    color: #E53224;
   }
-  75% {
-    transform: scale(1.0);
+  80% {
+    transform: scale(1.2);
     opacity: 0.7;
-    color: #FFFFFF;
+    color: #0055A4;
   }
   100% {
     transform: scale(0);
@@ -812,7 +845,7 @@
   }
 }
 
-/* Red, White, Green - Albania (AL), Bulgaria (BG), Hungary, Italy (IT) */
+/* Red, White, Green - Bulgaria (BG), Hungary, Italy (IT) */
 .color-changing-red-white-green {
   animation-name: pulseInPlaceRedWhiteGreen;
 }
@@ -843,5 +876,33 @@
     transform: scale(0);
     opacity: 0;
     color: #E53224;
+  }
+}
+
+/* Red, Black - Albania (AL) */
+.color-changing-red-black {
+  animation-name: pulseInPlaceRedBlack;
+}
+
+@keyframes pulseInPlaceRedBlack {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+    color: #E53224;
+  }
+  40% {
+    transform: scale(1.7);
+    opacity: 1;
+    color: #E53224;
+  }
+  60% {
+    transform: scale(1.2);
+    opacity: 0.6;
+    color: #E53224;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+    color: #000000;
   }
 }
