@@ -90,8 +90,8 @@ button:focus {
 
 .tooltip {
   position: absolute;
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   padding: 5px 10px;
   border-radius: 5px;
   z-index: 10; /* Make sure it's above other elements */
@@ -99,6 +99,7 @@ button:focus {
   left: -17px;
   top: -35px;
   font: 0.8rem "CodeProDemo";
+  border: none;
 }
 
 .tooltip::after {
@@ -109,7 +110,7 @@ button:focus {
   transform: translateX(-50%) rotate(45deg);
   width: 10px;
   height: 10px;
-  background-color: black;
+  background-color: white;
   z-index: -5;
 }
 

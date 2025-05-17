@@ -304,9 +304,16 @@ function RApp() {
   const handleSubmission = () => {
     if (!hasPlayedMusic) {
       alert(
-        "Find hidden music player before submitting your vote. There is no going back!"
+      "Find hidden music player before submitting your vote!"
       );
       setShowTooltip(true);
+      return;
+    }
+
+    if(new Date() < new Date("2025-05-17T19:00:00Z")){
+      alert(
+        "You can only submit your vote after the show begins!"
+      );
       return;
     }
     if (content === "Locked in") return;
