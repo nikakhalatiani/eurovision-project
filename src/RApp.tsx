@@ -119,32 +119,32 @@ function RApp() {
   ];
 
   const realFinalists = [
-    { id: "NO", content: "Norway", music: "./music2/Norway.mp3" },        // 1st
-    { id: "LU", content: "Luxembourg", music: "./music2/Luxembourg.mp3" }, // 2nd
-    { id: "EE", content: "Estonia", music: "./music2/Estonia.mp3" },      // 3rd
+    { id: "AT", content: "Austria", music: "./music2/Austria.mp3" }, // 1st
     { id: "IL", content: "Israel", music: "./music2/Israel.mp3" },        // Israel (Yuval)
-    { id: "LT", content: "Lithuania", music: "./music2/Lithuania.mp3" },    // 8th
-    { id: "ES", content: "Spain", music: "./music2/Spain.mp3" },        // 4th`
-    { id: "UA", content: "Ukraine", music: "./music2/Ukraine.mp3" },      // 5th
-    { id: "GB", content: "United Kingdom", music: "./music2/UnitedKingdom.mp3" }, // 6th
-    { id: "AT", content: "Austria", music: "./music2/Austria.mp3" },      // 7th
-    { id: "IS", content: "Iceland", music: "./music2/Iceland.mp3" },      // 8th
-    { id: "LV", content: "Latvia", music: "./music2/Latvia.mp3" },        // 9th
-    { id: "NL", content: "Netherlands", music: "./music2/Netherlands.mp3" }, // 10th
-    { id: "FI", content: "Finland", music: "./music2/Finland.mp3" },      // 11th
+    { id: "EE", content: "Estonia", music: "./music2/Estonia.mp3" },      // 3rd
+    { id: "SE", content: "Sweden", music: "./music2/Sweden.mp3" },        // 21st
     { id: "IT", content: "Italy", music: "./music2/Italy.mp3" },        // 12th
+    { id: "GR", content: "Greece", music: "./music2/Greece.mp3" },        // 15th
+    { id: "FR", content: "France", music: "./music2/France.mp3" },        // 22nd
+    { id: "AL", content: "Albania", music: "./music2/Albania.mp3" },      // 24th
+    { id: "UA", content: "Ukraine", music: "./music2/Ukraine.mp3" },      // 5th
+    { id: "CH", content: "Switzerland", music: "./music2/Switzerland.mp3" }, // 17th
+    { id: "FI", content: "Finland", music: "./music2/Finland.mp3" },      // 11th
+    { id: "NL", content: "Netherlands", music: "./music2/Netherlands.mp3" }, // 10th
+    { id: "LV", content: "Latvia", music: "./music2/Latvia.mp3" },        // 9th
     { id: "PL", content: "Poland", music: "./music2/Poland.mp3" },        // 13th
     { id: "DE", content: "Germany", music: "./music2/Germany.mp3" },      // 14th
-    { id: "GR", content: "Greece", music: "./music2/Greece.mp3" },        // 15th
-    { id: "AM", content: "Armenia", music: "./music2/Armenia.mp3" },        // 16th
-    { id: "CH", content: "Switzerland", music: "./music2/Switzerland.mp3" }, // 17th
+    { id: "LT", content: "Lithuania", music: "./music2/Lithuania.mp3" },    // 8th
     { id: "MT", content: "Malta", music: "./music2/Malta.mp3" },          // 18th
+    { id: "NO", content: "Norway", music: "./music2/Norway.mp3" },        // 1st
+    { id: "GB", content: "United Kingdom", music: "./music2/UnitedKingdom.mp3" }, // 6th
+    { id: "AM", content: "Armenia", music: "./music2/Armenia.mp3" },        // 16th
     { id: "PT", content: "Portugal", music: "./music2/Portugal.mp3" },    // 19th
+    { id: "LU", content: "Luxembourg", music: "./music2/Luxembourg.mp3" }, // 2nd
     { id: "DK", content: "Denmark", music: "./music2/Denmark.mp3" },        // 20th
-    { id: "SE", content: "Sweden", music: "./music2/Sweden.mp3" },        // 21st
-    { id: "FR", content: "France", music: "./music2/France.mp3" },        // 22nd
+    { id: "ES", content: "Spain", music: "./music2/Spain.mp3" },        // 4th`
+    { id: "IS", content: "Iceland", music: "./music2/Iceland.mp3" },      // 8th
     { id: "SM", content: "San Marino", music: "./music2/SanMarino.mp3" }, // 23rd
-    { id: "AL", content: "Albania", music: "./music2/Albania.mp3" },      // 24th
   ];
 
   const [items, setItems] = useState(() => {
@@ -304,13 +304,13 @@ function RApp() {
   const handleSubmission = () => {
     if (!hasPlayedMusic) {
       alert(
-      "Find hidden music player before submitting your vote!"
+        "Find hidden music player before submitting your vote!"
       );
       setShowTooltip(true);
       return;
     }
 
-    if(new Date() < new Date("2025-05-17T19:00:00Z")){
+    if (new Date() < new Date("2025-05-17T19:00:00Z")) {
       alert(
         "You can only submit your vote after the show begins!"
       );
