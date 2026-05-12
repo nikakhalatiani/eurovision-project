@@ -1,6 +1,7 @@
-import './SVGComponent.css';
+import type { SVGProps } from "react";
+import "./SVGComponent.css";
 
-const SVGComponent = (props:any) => (
+const SVGComponent = (props: SVGProps<SVGSVGElement>) => (
 <svg
   className="eurovision-logo"
   xmlns="http://www.w3.org/2000/svg"

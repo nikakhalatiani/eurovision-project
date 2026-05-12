@@ -1,15 +1,19 @@
 import type { PointerEvent } from "react";
 import { PointerSensor } from "@dnd-kit/core";
+import type { PointerSensorOptions } from "@dnd-kit/core";
 
 /**
  * An extended "PointerSensor" that prevent some
  * interactive html element(button, input, textarea, select, option...) from dragging
  */
 export class SmartPointerSensor extends PointerSensor {
-  static activators = [
+  static activators: typeof PointerSensor.activators = [
     {
-      eventName: "onPointerDown" as any,
-      handler: ({ nativeEvent: event }: PointerEvent) => {
+      eventName: "onPointerDown",
+      handler: (
+        { nativeEvent: event }: PointerEvent,
+        { onActivation }: PointerSensorOptions
+      ) => {
         if (
           !event.isPrimary ||
           event.button !== 0 ||
@@ -18,6 +22,7 @@ export class SmartPointerSensor extends PointerSensor {
           return false;
         }
 
+        onActivation?.({ event });
         return true;
       },
     },

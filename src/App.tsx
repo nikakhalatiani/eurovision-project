@@ -8,6 +8,7 @@ import {
   useSensors,
   closestCorners,
 } from "@dnd-kit/core";
+import type { DragEndEvent } from "@dnd-kit/core";
 import { Column } from "./components/Column";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
@@ -17,7 +18,9 @@ import SendButton from "./components/SendButton";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./LandingPage";
 import RApp from "./RApp";
-import HeartBackground from "./Background";  
+import HeartBackground from "./Background";
+import type { CountryItem } from "./types";
+import { readStoredCountryItems } from "./types";
 
 function App() {
   // Existing App code remains here
@@ -33,7 +36,7 @@ function App() {
 }
 
 function MainApp() {
-  const secondSemiFinal = [
+  const secondSemiFinal: CountryItem[] = [
     { id: "DE", content: "Germany", music: "./music2/Germany.mp3" },
     { id: "FR", content: "France", music: "./music2/France.mp3" },
     { id: "ES", content: "Spain", music: "./music2/Spain.mp3" },
@@ -42,7 +45,7 @@ function MainApp() {
     { id: "GB", content: "United Kingdom", music: "./music2/UnitedKingdom.mp3" },
   ];
 
-  const firstSemiFinal = [
+  const firstSemiFinal: CountryItem[] = [
     { id: "IS", content: "Iceland", music: "./music2/Iceland.mp3" },      // 1st
     { id: "PL", content: "Poland", music: "./music2/Poland.mp3" },        // 2nd
     { id: "SI", content: "Slovenia", music: "./music2/Slovenia.mp3" },    // 3rd
@@ -78,12 +81,12 @@ function MainApp() {
 
 
 
-  const [items, setItems] = useState(() => {
+  const [items, setItems] = useState<CountryItem[]>(() => {
     // Get the saved items from localStorage if available, otherwise set a default list
-    const savedItems = localStorage.getItem("countryItems");
-    return savedItems
-      ? JSON.parse(savedItems)
-      : firstSemiFinal.concat(secondSemiFinal);
+    return readStoredCountryItems(
+      "countryItems",
+      firstSemiFinal.concat(secondSemiFinal)
+    );
   });
   const [playingMusicId, setPlayingMusicId] = useState<string | null>(null);
   const [hasPlayedMusic, setHasPlayedMusic] = useState(
@@ -126,8 +129,6 @@ function MainApp() {
       setTimeout(() => {
         setInitialAnimationsPlayed(false);
       }, 2000);
-    } else {
-      setInitialAnimationsPlayed(true); // this prevents the animation from playing on subsequent renders
     }
   }, []);
 
@@ -137,8 +138,8 @@ function MainApp() {
   }, [items]);
 
   // useEffect(() => {
-  //   const semifinalChange = new Date("2024-05-08T04:00:00Z");
-  //   const finalChange = new Date("2024-05-10T04:00:00Z");
+  //   const semifinalChange = new Date("2026-05-14T19:00:00Z");
+  //   const finalChange = new Date("2026-05-16T19:00:00Z");
   //   const currentTime = new Date();
   //   if (currentTime > finalChange) {
   //     console.log("final change");
@@ -161,19 +162,18 @@ function MainApp() {
   //   }
   // }, []);
 
-  const getCountryPos = (id: string) =>
-    items.findIndex((item: any) => item.id === id);
-
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     setInitialAnimationsPlayed(true);
     localStorage.setItem("initialAnimationsPlayed", "true");
     const { active, over } = event;
 
     if (!over) return; // Add this line to prevent errors when dropping outside a valid area
 
-    setItems((tasks: any) => {
-      const originalPos = getCountryPos(active.id);
-      const newPos = getCountryPos(over.id);
+    setItems((tasks) => {
+      const activeId = String(active.id);
+      const overId = String(over.id);
+      const originalPos = tasks.findIndex((item) => item.id === activeId);
+      const newPos = tasks.findIndex((item) => item.id === overId);
       return arrayMove(tasks, originalPos, newPos);
     });
   };
@@ -197,7 +197,7 @@ function MainApp() {
     if (elementsToAnimate.length === 0) {
       return;
     }
-    let country = playingMusicId?.slice(6);
+    const country = playingMusicId?.slice(6);
     console.log(country);
     // check if the country is in the top 10
     let isCountryInTop10 = false;

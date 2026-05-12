@@ -8,20 +8,173 @@ import {
   useSensors,
   closestCorners,
 } from "@dnd-kit/core";
+import type { DragEndEvent } from "@dnd-kit/core";
 import { Column } from "./components/Column";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { SmartPointerSensor } from "./components/SmartPointerSensor";
 import { SmartTouchSensor } from "./components/SmartTouchSensor";
 import SendButton from "./components/SendButton";
-import HeartBackground from "./Background"
+import HeartBackground from "./Background";
+import { getContestTime } from "./eurovisionSchedule";
+import type { CountryItem } from "./types";
+import { readStoredCountryItems } from "./types";
 
-type Item = {
-  id: string;
+type ContestLists = {
+  firstSemiFinal: CountryItem[];
+  realFirstSemifinalists: CountryItem[];
+  secondSemiFinal: CountryItem[];
+  realSecondSemifinalists: CountryItem[];
+  finalists: CountryItem[];
+  realFinalists: CountryItem[];
+};
+
+type StorageWrite = readonly [key: string, value: string];
+
+type InitialContestState = {
+  items: CountryItem[];
+  submissionDone: boolean;
   content: string;
-  music: string;
-  isCorrect?: boolean;
-  guess?: number;
+  storageWrites: StorageWrite[];
+  storageRemovals: string[];
+  alertMessage?: string;
+};
+
+const getStoredRealContent = () =>
+  localStorage.getItem("Realsubmitted") === "true"
+    ? "Locked in"
+    : localStorage.getItem("finalChangeHappened") === "true"
+      ? "Lock in the vote"
+      : "Lock in top 10";
+
+const getBaseContestState = (fallbackItems: CountryItem[]): InitialContestState => ({
+  items: readStoredCountryItems("RealcountryItems", fallbackItems),
+  submissionDone: localStorage.getItem("Realsubmitted") === "true",
+  content: getStoredRealContent(),
+  storageWrites: [],
+  storageRemovals: [],
+});
+
+const markSemifinalResults = (
+  userTopTen: CountryItem[],
+  realSemifinalists: CountryItem[]
+) =>
+  userTopTen.map((entry) => ({
+    ...entry,
+    isCorrect: realSemifinalists.some((finalist) => finalist.id === entry.id),
+  }));
+
+const markFinalResults = (
+  userFinalGuesses: CountryItem[],
+  actualFinalists: CountryItem[]
+) =>
+  userFinalGuesses.map((guess) => {
+    const actualIndex = actualFinalists.findIndex(
+      (finalist) => finalist.id === guess.id
+    );
+    const guessIndex = userFinalGuesses.findIndex(
+      (finalist) => finalist.id === guess.id
+    );
+
+    return {
+      ...guess,
+      guess: guessIndex - actualIndex,
+    };
+  });
+
+const lockedContestState = (
+  items: CountryItem[],
+  storageWrites: StorageWrite[],
+  alertMessage?: string
+): InitialContestState => ({
+  items,
+  submissionDone: true,
+  content: "Locked in",
+  storageWrites: [["Realsubmitted", "true"], ...storageWrites],
+  storageRemovals: [],
+  alertMessage,
+});
+
+const resetContestState = (
+  items: CountryItem[],
+  content: string,
+  storageWrites: StorageWrite[]
+): InitialContestState => ({
+  items,
+  submissionDone: false,
+  content,
+  storageWrites,
+  storageRemovals: ["RealcountryItems", "Realsubmitted", "userTopTen"],
+});
+
+const buildInitialContestState = (lists: ContestLists): InitialContestState => {
+  const baseState = getBaseContestState(lists.firstSemiFinal);
+  const currentTime = new Date();
+
+  if (
+    currentTime > getContestTime("finalResults") &&
+    localStorage.getItem("finalResultsCompared") !== "true"
+  ) {
+    const userFinalGuesses = readStoredCountryItems("userFinal", []);
+    return {
+      ...baseState,
+      items: userFinalGuesses.length
+        ? markFinalResults(userFinalGuesses, lists.realFinalists)
+        : baseState.items,
+      storageWrites: [["finalResultsCompared", "true"]],
+      alertMessage: userFinalGuesses.length
+        ? undefined
+        : "You have not submitted your final guesses!",
+    };
+  }
+
+  if (
+    currentTime > getContestTime("finalPreview") &&
+    localStorage.getItem("finalChangeHappened") !== "true"
+  ) {
+    return resetContestState(lists.finalists, "Lock in the vote", [
+      ["finalChangeHappened", "true"],
+    ]);
+  }
+
+  if (
+    currentTime > getContestTime("secondSemiResults") &&
+    localStorage.getItem("secondChangeHappened") !== "true"
+  ) {
+    const userTopTen = readStoredCountryItems("userTopTen", []);
+    return lockedContestState(
+      userTopTen.length
+        ? markSemifinalResults(userTopTen, lists.realSecondSemifinalists)
+        : baseState.items,
+      [["secondChangeHappened", "true"]],
+      userTopTen.length ? undefined : "You have not submitted your top 10!"
+    );
+  }
+
+  if (
+    currentTime > getContestTime("secondSemiStart") &&
+    localStorage.getItem("semifinalChangeHappened") !== "true"
+  ) {
+    return resetContestState(lists.secondSemiFinal, "Lock in top 10", [
+      ["semifinalChangeHappened", "true"],
+    ]);
+  }
+
+  if (
+    currentTime > getContestTime("firstSemiResults") &&
+    localStorage.getItem("firstChangeHappened") !== "true"
+  ) {
+    const userTopTen = readStoredCountryItems("userTopTen", []);
+    return lockedContestState(
+      userTopTen.length
+        ? markSemifinalResults(userTopTen, lists.realFirstSemifinalists)
+        : baseState.items,
+      [["firstChangeHappened", "true"]],
+      userTopTen.length ? undefined : "You have not submitted your top 10!"
+    );
+  }
+
+  return baseState;
 };
 
 function RApp() {
@@ -147,11 +300,17 @@ function RApp() {
     { id: "SM", content: "San Marino", music: "./music2/SanMarino.mp3" }, // 23rd
   ];
 
-  const [items, setItems] = useState(() => {
-    // Get the saved items from localStorage if available, otherwise set a default list
-    const savedItems = localStorage.getItem("RealcountryItems");
-    return savedItems ? JSON.parse(savedItems) : firstSemiFinal;
-  });
+  const [initialContestState] = useState(() =>
+    buildInitialContestState({
+      firstSemiFinal,
+      realFirstSemifinalists: realfirstSemifinalists,
+      secondSemiFinal,
+      realSecondSemifinalists: realsecondSemifinalists,
+      finalists,
+      realFinalists,
+    })
+  );
+  const [items, setItems] = useState<CountryItem[]>(initialContestState.items);
   const [playingMusicId, setPlayingMusicId] = useState<string | null>(null);
   const [hasPlayedMusic, setHasPlayedMusic] = useState(
     localStorage.getItem("RealhasPlayedMusic") === "true" || false
@@ -162,14 +321,21 @@ function RApp() {
     () => localStorage.getItem("RealinitialAnimationsPlayed") !== "true"
   );
   const [submissionDone, setSubmissionDone] = useState(
-    localStorage.getItem("Realsubmitted") === "true" || false
+    initialContestState.submissionDone
   );
-  const [content, setContent] = useState(
-    localStorage.getItem("Realsubmitted") === "true"
-      ? "Locked in"
-      : localStorage.getItem("finalChangeHappened") === "true" ? "Lock in the vote"
-        : "Lock in top 10"
-  );
+  const [content, setContent] = useState(initialContestState.content);
+
+  useEffect(() => {
+    initialContestState.storageRemovals.forEach((key) => {
+      localStorage.removeItem(key);
+    });
+    initialContestState.storageWrites.forEach(([key, value]) => {
+      localStorage.setItem(key, value);
+    });
+    if (initialContestState.alertMessage) {
+      alert(initialContestState.alertMessage);
+    }
+  }, [initialContestState]);
 
   useEffect(() => {
     if (localStorage.getItem("RealinitialAnimationsPlayed") !== "true") {
@@ -179,8 +345,6 @@ function RApp() {
       setTimeout(() => {
         setInitialAnimationsPlayed(false);
       }, 2000);
-    } else {
-      setInitialAnimationsPlayed(true); // this prevents the animation from playing on subsequent renders
     }
   }, []);
 
@@ -188,80 +352,6 @@ function RApp() {
     // Save the items to localStorage whenever they change
     localStorage.setItem("RealcountryItems", JSON.stringify(items));
   }, [items]);
-
-  // Function to compare the user's guessed finalists with the actual finalists
-  const compareFinalResults = (actualFinalists: Item[]) => {
-    const userFinalGuesses = JSON.parse(
-      localStorage.getItem("userFinal") || "[]"
-    );
-    if (!userFinalGuesses.length) {
-      alert("You have not submitted your final guesses!");
-      return;
-    }
-
-    const results = userFinalGuesses.map((guess: Item) => {
-      const actualIndex = actualFinalists.findIndex(
-        (finalist: Item) => finalist.id === guess.id
-      );
-      const guessIndex = userFinalGuesses.findIndex(
-        (finalist: Item) => finalist.id === guess.id
-      );
-      const positionDifference = guessIndex - actualIndex;
-
-      return {
-        ...guess,
-        guess: positionDifference, // This directly shows how many positions off the guess was
-      };
-    });
-
-    setItems(results);
-  };
-
-  useEffect(() => {
-    const currentTime = new Date();
-    const firstChange = new Date("2025-05-14T04:00:00Z");
-    const semifinalChange = new Date("2025-05-15T19:00:00Z");
-    const secondChange = new Date("2025-05-16T04:00:00Z");
-    const finalChange = new Date("2025-05-16T19:00:00Z");
-    const finalResultTime = new Date("2025-05-18T06:00:00Z");
-
-    if (currentTime > finalResultTime) {
-      if (localStorage.getItem("finalResultsCompared") !== "true") {
-        compareFinalResults(realFinalists);
-        localStorage.setItem("finalResultsCompared", "true");
-      }
-    } else if (currentTime > finalChange) {
-      if (localStorage.getItem("finalChangeHappened") !== "true") {
-        setItems(finalists);
-        resetItemsOrder();
-        localStorage.setItem("finalChangeHappened", "true");
-        setContent("Lock in the vote");
-      }
-    } else if (currentTime > secondChange) {
-      if (localStorage.getItem("secondChangeHappened") !== "true") {
-        compareResults(realsecondSemifinalists);
-        handleLock();
-        localStorage.setItem("secondChangeHappened", "true");
-      }
-    } else if (currentTime > semifinalChange) {
-      if (localStorage.getItem("semifinalChangeHappened") !== "true") {
-        setItems(secondSemiFinal);
-        resetItemsOrder();
-        localStorage.setItem("semifinalChangeHappened", "true");
-      }
-    } else if (currentTime > firstChange) {
-      if (localStorage.getItem("firstChangeHappened") !== "true") {
-        compareResults(realfirstSemifinalists);
-        handleLock();
-        localStorage.setItem("firstChangeHappened", "true");
-      }
-    }
-    // else {
-    //   setItems(firstSemiFinal);
-    //   resetItemsOrder();
-    //   localStorage.clear();
-    // }
-  }, []);
 
   const resetItemsOrder = () => {
     localStorage.removeItem("RealcountryItems");
@@ -284,18 +374,18 @@ function RApp() {
     localStorage.setItem("userFinal", JSON.stringify(items));
   };
 
-  const getCountryPos = (id: string) =>
-    items.findIndex((item: Item) => item.id === id);
+  const getCountryPos = (tasks: CountryItem[], id: string) =>
+    tasks.findIndex((item) => item.id === id);
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     setInitialAnimationsPlayed(true);
     localStorage.setItem("RealinitialAnimationsPlayed", "true");
     const { active, over } = event;
 
     if (!over) return; // prevent errors when dropping outside a valid area
-    setItems((tasks: Item[]) => {
-      const originalPos = getCountryPos(active.id);
-      const newPos = getCountryPos(over.id);
+    setItems((tasks) => {
+      const originalPos = getCountryPos(tasks, String(active.id));
+      const newPos = getCountryPos(tasks, String(over.id));
       return arrayMove(tasks, originalPos, newPos);
     });
   };
@@ -310,7 +400,7 @@ function RApp() {
       return;
     }
 
-    if (new Date() < new Date("2025-05-17T19:00:00Z")) {
+    if (new Date() < getContestTime("finalStart")) {
       alert(
         "You can only submit your vote after the show begins!"
       );
@@ -332,7 +422,7 @@ function RApp() {
     }
 
     localStorage.setItem("userTopTen", JSON.stringify(items.slice(0, 10)));
-    let country = playingMusicId?.slice(6);
+    const country = playingMusicId?.slice(6);
     let isCountryInTop10 = false;
     for (let i = 0; i < 10; i++) {
       if (items[i].id === country) {
@@ -363,21 +453,6 @@ function RApp() {
     }, 1000);
   };
 
-  const compareResults = (realSemifinalists: Item[]) => {
-    const userTopTen = JSON.parse(localStorage.getItem("userTopTen") || "[]");
-    if (!userTopTen.length) {
-      alert("You have not submitted your top 10!");
-      return;
-    }
-    const matches = userTopTen.map((entry: Item) => ({
-      ...entry,
-      isCorrect: realSemifinalists.some(
-        (finalist: Item) => finalist.id === entry.id
-      ),
-    }));
-    setItems(matches);
-  };
-
   const playMusic = (id: string) => {
     setHasPlayedMusic(true);
     localStorage.setItem("RealhasPlayedMusic", "true");
@@ -405,7 +480,7 @@ function RApp() {
     <>
       <HeartBackground country={topCountryCode} />
       <div className="App">
-        <SVGComponent></SVGComponent>
+        <SVGComponent onClick={resetItemsOrder}></SVGComponent>
         {submissionDone ? (
           // If the submission is done, render the column without the DndContext
           <Column

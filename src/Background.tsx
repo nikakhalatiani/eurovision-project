@@ -1,5 +1,5 @@
 // Improved Background.tsx with color animation fix
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./Background.css";
 
 interface HeartBackgroundProps {
@@ -76,50 +76,25 @@ const createHeartElement = (
 };
 
 const HeartBackground: React.FC<HeartBackgroundProps> = ({ country = "CH" }) => {
-  const [countryCode, setCountryCode] = useState<string>(country);
   const containerRef = useRef<HTMLDivElement>(null);
   const resizeObserverRef = useRef<ResizeObserver | null>(null);
   const heartGridRef = useRef<{ rows: number; cols: number }>({ rows: 0, cols: 0 });
   
   // Track if we need to rebuild the hearts
   const needsRebuild = useRef<boolean>(true);
-  const prevCountryCodeRef = useRef<string>(country);
   const prevAnimationClassRef = useRef<string>(getCountryAnimationClass(country));
 
-  // Sync state if prop changes
-  useEffect(() => {
-    if (country !== countryCode) {
-      setCountryCode(country);
-      
-      // Only mark for rebuild if animation class changes
-      const newAnimationClass = getCountryAnimationClass(country);
-      const prevAnimationClass = getCountryAnimationClass(countryCode);
-      
-      if (newAnimationClass !== prevAnimationClass) {
-        needsRebuild.current = true;
-        console.log("Animation class changed, rebuilding hearts");
-      } else {
-        console.log("Same animation class detected, skipping rebuild");
-      }
-    }
-  }, [country, countryCode]);
-
   // Get the current country animation class
-  const animationClass = getCountryAnimationClass(countryCode);
+  const animationClass = getCountryAnimationClass(country);
 
   // Rebuild hearts when needed
   useEffect(() => {
     // Check if animation class changed
-    const currentAnimationClass = getCountryAnimationClass(countryCode);
-    
-    if (prevAnimationClassRef.current !== currentAnimationClass) {
+    if (prevAnimationClassRef.current !== animationClass) {
       needsRebuild.current = true;
-      prevAnimationClassRef.current = currentAnimationClass;
-      console.log("Animation class changed to:", currentAnimationClass);
+      prevAnimationClassRef.current = animationClass;
+      console.log("Animation class changed to:", animationClass);
     }
-    
-    // Update the previous country code reference
-    prevCountryCodeRef.current = countryCode;
     
     // Skip if we don't need to rebuild
     if (!needsRebuild.current) {
@@ -221,10 +196,10 @@ const HeartBackground: React.FC<HeartBackgroundProps> = ({ country = "CH" }) => 
         resizeObserverRef.current.disconnect();
       }
     };
-  }, [countryCode, animationClass]);
+  }, [country, animationClass]);
 
   // Log for debugging
-  console.log("Rendering background with country:", countryCode, "animation class:", animationClass);
+  console.log("Rendering background with country:", country, "animation class:", animationClass);
 
   return <div ref={containerRef} id="heartContainer" className="heart-container" />;
 };

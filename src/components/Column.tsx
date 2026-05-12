@@ -7,17 +7,10 @@ import {
 } from "@dnd-kit/sortable";
 import "./Column.css";
 import { Country } from "./Country";
-
-type Item = {
-  id: string;
-  content: string;
-  music: string;
-  isCorrect?: boolean;
-  guess?: number;
-};
+import type { CountryItem } from "../types";
 
 type ColumnProps = {
-  items: Item[];
+  items: CountryItem[];
   playMusic: (music: string) => void;
   playingMusicId: string | null;
   showTooltip: boolean;
