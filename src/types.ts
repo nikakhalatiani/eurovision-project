@@ -6,6 +6,10 @@ export type CountryItem = {
   guess?: number;
 };
 
+type StoredCountryItemsOptions = {
+  validateAgainstFallback?: boolean;
+};
+
 export const isCountryItem = (value: unknown): value is CountryItem => {
   if (typeof value !== "object" || value === null) {
     return false;
@@ -24,9 +28,20 @@ export const isCountryItem = (value: unknown): value is CountryItem => {
 export const isCountryItemArray = (value: unknown): value is CountryItem[] =>
   Array.isArray(value) && value.every(isCountryItem);
 
+const hasSameCountryIds = (items: CountryItem[], fallback: CountryItem[]) => {
+  const ids = new Set(items.map((item) => item.id));
+
+  return (
+    ids.size === items.length &&
+    ids.size === fallback.length &&
+    fallback.every((item) => ids.has(item.id))
+  );
+};
+
 export const readStoredCountryItems = (
   key: string,
-  fallback: CountryItem[]
+  fallback: CountryItem[],
+  options: StoredCountryItemsOptions = {}
 ): CountryItem[] => {
   const savedItems = localStorage.getItem(key);
   if (!savedItems) {
@@ -35,7 +50,18 @@ export const readStoredCountryItems = (
 
   try {
     const parsed: unknown = JSON.parse(savedItems);
-    return isCountryItemArray(parsed) ? parsed : fallback;
+    if (!isCountryItemArray(parsed)) {
+      return fallback;
+    }
+
+    if (
+      options.validateAgainstFallback &&
+      !hasSameCountryIds(parsed, fallback)
+    ) {
+      return fallback;
+    }
+
+    return parsed;
   } catch {
     return fallback;
   }
