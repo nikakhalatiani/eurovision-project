@@ -1,30 +1,66 @@
-# React + TypeScript + Vite
+# Eurovision Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React, TypeScript, and Vite voting companion for Eurovision 2026. The app lets users rank countries, lock a top 10, replay saved votes after refresh, and view the 2026 visual identity with an animated canvas background.
 
-Currently, two official plugins are available:
+## Routes
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- `/` - landing page with the Eurovision 2026 branding and countdown.
+- `/app` - test voting flow with all 2026 participants.
+- `/rapp` - real voting flow that changes by semifinal/final schedule.
 
-## Expanding the ESLint configuration
+The app is configured for GitHub Pages under `/eurovision-project/`.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Local Development
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+npm install
+npm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Vite usually serves the app at:
+
+```text
+http://127.0.0.1:5174/eurovision-project/
+```
+
+## Production Build
+
+```bash
+npm run lint
+npm run build
+```
+
+The production build is written to `dist/`.
+
+## Deploy
+
+```bash
+npm run deploy
+```
+
+Deployment uses `gh-pages -d dist`, so GitHub Pages should be configured to serve:
+
+```text
+Branch: gh-pages
+Folder: /root
+```
+
+## Important Files
+
+- `src/contestants2026.ts` - 2026 participant, semifinal, finalist, and result data.
+- `src/eurovisionSchedule.ts` - schedule gates for the real voting flow.
+- `src/RApp.tsx` - real voting flow and vote persistence.
+- `src/App.tsx` - routing and the test voting flow.
+- `src/Background.tsx` - canvas-rendered Eurovision background.
+- `public/brand/` - Eurovision logo and visual assets used by the frontend.
+
+## Vote Persistence
+
+The real voting flow stores the current state in `localStorage`:
+
+- `RealcountryItems` - current editable order before locking.
+- `userTopTen` - locked semifinal top 10.
+- `userFinal` - locked final ranking.
+- `Realsubmitted` - whether the active phase is locked.
+
+Locked semifinal reloads restore from `userTopTen`, so the page remains locked to 10 countries after refresh.
