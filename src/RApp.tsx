@@ -55,17 +55,49 @@ const getStoredRealContent = () =>
       ? "Lock in the vote"
       : "Lock in top 10";
 
+const readStoredTopTen = (phaseItems: CountryItem[]) =>
+  readStoredCountryItems("userTopTen", phaseItems.slice(0, 10), {
+    allowedItems: phaseItems,
+    allowSubsetOfFallback: true,
+    expectedLength: Math.min(10, phaseItems.length),
+    validateAgainstFallback: true,
+  });
+
+const readStoredFinalVote = (phaseItems: CountryItem[]) =>
+  readStoredCountryItems("userFinal", phaseItems, {
+    validateAgainstFallback: true,
+  });
+
+const readStoredCurrentItems = (
+  fallbackItems: CountryItem[],
+  submissionDone: boolean
+) => {
+  if (!submissionDone) {
+    return readStoredCountryItems("RealcountryItems", fallbackItems, {
+      validateAgainstFallback: true,
+    });
+  }
+
+  if (localStorage.getItem("finalChangeHappened") === "true") {
+    return readStoredFinalVote(fallbackItems);
+  }
+
+  return readStoredTopTen(fallbackItems);
+};
+
 const getBaseContestState = (
   fallbackItems: CountryItem[]
-): InitialContestState => ({
-  items: readStoredCountryItems("RealcountryItems", fallbackItems, {
-    validateAgainstFallback: true,
-  }),
-  submissionDone: localStorage.getItem("Realsubmitted") === "true",
-  content: getStoredRealContent(),
-  storageWrites: [],
-  storageRemovals: [],
-});
+): InitialContestState => {
+  const submissionDone = localStorage.getItem("Realsubmitted") === "true";
+
+  return {
+    items: readStoredCurrentItems(fallbackItems, submissionDone),
+    submissionDone,
+    content: getStoredRealContent(),
+    storageWrites: [],
+    storageRemovals: [],
+  };
+};
 
 const markSemifinalResults = (
   userTopTen: CountryItem[],
@@ -155,7 +187,7 @@ const buildInitialContestState = (lists: ContestLists): InitialContestState => {
     lists.realSecondSemifinalists.length > 0 &&
     localStorage.getItem("secondChangeHappened") !== "true"
   ) {
-    const userTopTen = readStoredCountryItems("userTopTen", []);
+    const userTopTen = readStoredTopTen(lists.secondSemiFinal);
     return lockedContestState(
       userTopTen.length
         ? markSemifinalResults(userTopTen, lists.realSecondSemifinalists)
@@ -179,7 +211,7 @@ const buildInitialContestState = (lists: ContestLists): InitialContestState => {
     lists.realFirstSemifinalists.length > 0 &&
     localStorage.getItem("firstChangeHappened") !== "true"
   ) {
-    const userTopTen = readStoredCountryItems("userTopTen", []);
+    const userTopTen = readStoredTopTen(lists.firstSemiFinal);
     return lockedContestState(
       userTopTen.length
         ? markSemifinalResults(userTopTen, lists.realFirstSemifinalists)
@@ -330,16 +362,18 @@ function RApp() {
       return;
     }
 
+    const topTenItems = items.slice(0, 10);
+    localStorage.setItem("userTopTen", JSON.stringify(topTenItems));
     handleLock();
 
     const elementsToAnimate = document.querySelectorAll(
       ".country:not(:nth-child(-n+10))" // Select all countries except the first 10
     );
     if (elementsToAnimate.length === 0) {
+      setItems(topTenItems);
       return;
     }
 
-    localStorage.setItem("userTopTen", JSON.stringify(items.slice(0, 10)));
     const country = playingMusicId?.slice(6);
     let isCountryInTop10 = false;
     for (let i = 0; i < 10; i++) {
@@ -364,7 +398,7 @@ function RApp() {
     }
 
     setTimeout(() => {
-      setItems(items.slice(0, 10));
+      setItems(topTenItems);
       if (sendButton) {
         sendButton.style.transform = ``;
       }

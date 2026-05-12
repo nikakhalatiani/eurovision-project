@@ -7,6 +7,9 @@ export type CountryItem = {
 };
 
 type StoredCountryItemsOptions = {
+  allowedItems?: CountryItem[];
+  expectedLength?: number;
+  allowSubsetOfFallback?: boolean;
   validateAgainstFallback?: boolean;
 };
 
@@ -38,6 +41,18 @@ const hasSameCountryIds = (items: CountryItem[], fallback: CountryItem[]) => {
   );
 };
 
+const hasUniqueAllowedCountryIds = (
+  items: CountryItem[],
+  allowedItems: CountryItem[]
+) => {
+  const ids = new Set(items.map((item) => item.id));
+  const allowedIds = new Set(allowedItems.map((item) => item.id));
+
+  return (
+    ids.size === items.length && items.every((item) => allowedIds.has(item.id))
+  );
+};
+
 export const readStoredCountryItems = (
   key: string,
   fallback: CountryItem[],
@@ -55,9 +70,18 @@ export const readStoredCountryItems = (
     }
 
     if (
-      options.validateAgainstFallback &&
-      !hasSameCountryIds(parsed, fallback)
+      options.expectedLength !== undefined &&
+      parsed.length !== options.expectedLength
     ) {
+      return fallback;
+    }
+
+    const allowedItems = options.allowedItems ?? fallback;
+    const hasValidIds = options.allowSubsetOfFallback
+      ? hasUniqueAllowedCountryIds(parsed, allowedItems)
+      : hasSameCountryIds(parsed, allowedItems);
+
+    if (options.validateAgainstFallback && !hasValidIds) {
       return fallback;
     }
 
