@@ -1,4 +1,28 @@
+.eurovision-logo-button {
+  width: min(68vw, 360px);
+  padding: 10px 0 2px;
+  cursor: pointer;
+  opacity: 0.96;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    filter 160ms ease;
+}
+
+.eurovision-logo-button:hover,
+.eurovision-logo-button:focus-visible {
+  opacity: 1;
+  transform: translateY(-1px);
+  filter: drop-shadow(0 0 18px rgba(255, 62, 222, 0.3));
+}
+
+.eurovision-logo-button:focus-visible {
+  outline: 2px solid rgba(245, 215, 123, 0.9);
+  outline-offset: 6px;
+}
+
 .eurovision-logo {
-  width: 25%;
-  fill: #000;
+  display: block;
+  width: 100%;
+  height: auto;
 }

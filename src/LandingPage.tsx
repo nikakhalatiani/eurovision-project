@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LandingPage.css";
-import HeartBackground from "./Background.tsx";
+import HeartBackground from "./Background";
 import { getContestTimestamp } from "./eurovisionSchedule";
 
 const EUROVISION_START_TIME = getContestTimestamp("firstSemiStart");
+const logoSrc = `${import.meta.env.BASE_URL}brand/eurovision-vienna-2026-white.svg`;
+const sloganSrc = `${import.meta.env.BASE_URL}brand/united-by-music-white-magenta.svg`;
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -62,20 +64,33 @@ const LandingPage = () => {
   };
 
   return (
-    <><HeartBackground /><div className="landing">
-      <div className="parent">
-        <h2>Welcome to Voter</h2>
-        <div className="count">{formatCountdown(countdown)} till</div>
-        <div className="euro">Eurovision 2026</div>
-        <button
-          className="try-button"
-          onClick={handleNavigate}
-          disabled={isLoading}
-        >
-          {isLoading ? "Loading..." : "Test it Now"}
-        </button>
+    <>
+      <HeartBackground />
+      <div className="landing">
+        <div className="parent">
+          <img
+            className="landing-logo"
+            src={logoSrc}
+            alt="Eurovision Song Contest Vienna 2026"
+          />
+          <h2>Welcome to Voter</h2>
+          <div className="count">{formatCountdown(countdown)} till</div>
+          <div className="euro">Eurovision 2026</div>
+          <img
+            className="landing-slogan"
+            src={sloganSrc}
+            alt="United by Music"
+          />
+          <button
+            className="try-button"
+            onClick={handleNavigate}
+            disabled={isLoading}
+          >
+            {isLoading ? "Loading..." : "Test it Now"}
+          </button>
+        </div>
       </div>
-    </div></>
+    </>
   );
 };
 

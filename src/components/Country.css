@@ -61,10 +61,9 @@ button:focus {
 
 .number {
   text-align: center;
-  background-color: #64D6D2;
-  color: #000000;
+  background: linear-gradient(145deg, #f5d77b, #ff3ede);
+  color: #050712;
   overflow: hidden;
-  mix-blend-mode: difference;
   font-family: "CodeProDemo";
   width: 40px;
   height: 36px;
@@ -122,14 +121,23 @@ button:focus {
 .country {
   display: flex;
   flex-direction: row;
-  background-color: rgba(1, 8, 11, 0.211);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.044);
+  background: rgba(3, 8, 20, 0.58);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(245, 215, 123, 0.2);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
   touch-action: none;
   color: white;
   font-family: "CodeProDemo";
   font-size: 1.1rem;
+  transition:
+    border-color 140ms ease,
+    background-color 140ms ease;
+}
+
+.country:hover {
+  background: rgba(8, 17, 37, 0.72);
+  border-color: rgba(255, 62, 222, 0.42);
 }
 
 /* Correct guesses */
@@ -366,4 +374,3 @@ button:focus {
 .country.l25::after {
   content: "up by 25";
 }
-

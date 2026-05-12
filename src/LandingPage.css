@@ -1,71 +1,78 @@
 .landing {
-  font: 1.1rem "CodeProDemo";
-  display: flex;
-  justify-content: center;
+  min-height: 100dvh;
+  font: 1.05rem "CodeProDemo";
+  display: grid;
+  place-items: center;
+  padding: 34px 18px;
+  color: #ffffff;
 }
 
 .parent {
+  position: relative;
+  z-index: 1;
+  width: min(92vw, 720px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: white;
-  margin-top: 170px;
-  background: rgba(255, 255, 255, 0.2);
-  /* Semi-transparent white background */
-  border-radius: 10px;
-  /* Optional: rounds the corners */
-  padding: 20px;
-  /* Add some padding */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  /* Soft shadow for depth */
-  -webkit-backdrop-filter: blur(10px);
-  /* For Safari compatibility */
-  backdrop-filter: blur(10px);
-  /* Apply the blur effect */
-  max-width: 700px;
+  text-align: center;
+  gap: 12px;
+}
+
+.landing-logo {
+  width: min(86vw, 560px);
+  height: auto;
+  margin-bottom: 8px;
+  filter:
+    drop-shadow(0 0 26px rgba(0, 211, 255, 0.22))
+    drop-shadow(0 0 28px rgba(255, 0, 116, 0.2));
+}
+
+.landing-slogan {
+  width: min(42vw, 330px);
+  height: auto;
+  margin: -6px 0 4px;
+}
+
+.parent h2 {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(1rem, 2.6vw, 1.35rem);
+  font-weight: 400;
 }
 
 .euro {
-  background-color: white;
-  -webkit-background-clip: text;
-  color: rgba(0,
-      0,
-      0,
-      0);
-  /* Make the text color transparent to show the background */
-  background-clip: text;
-  /* This is the standard property, though not supported in all browsers */
+  color: #ffffff;
   display: inline-block;
-  /* Necessary to apply the gradient to the text */
-  font-size: 1.3rem;
+  font-size: clamp(1.4rem, 4.4vw, 2.4rem);
+  line-height: 1;
+  text-shadow:
+    0 0 18px rgba(66, 244, 255, 0.36),
+    0 0 34px rgba(255, 62, 222, 0.24);
+}
+
+.count {
+  color: #f5d77b;
+  font-size: clamp(0.9rem, 2.6vw, 1.08rem);
+  line-height: 1.45;
 }
 
 .try-button {
-  margin-bottom: 20px;
-  color: #E53224;
-  background-color: #64D6D2;
+  margin-top: 8px;
+  min-width: 196px;
+  height: 42px;
+  padding: 0 22px;
+  color: #050712;
+  background: linear-gradient(90deg, #f5d77b, #ff3ede 52%, #42f4ff);
   font-family: "CodeProDemo";
-  min-width: 200px;
   text-align: center;
-  padding-top: 8px;
-  padding-bottom: 7px;
-  height: 36px;
-  margin-top: 20px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26);
+  transition:
+    filter 180ms ease,
+    transform 180ms ease;
 }
 
 .try-button:hover,
 .try-button:active {
-  background-color: #E53224;
-  color: #64D6D2;
-  font-family: "CodeProDemo";
-}
-
-/* add smooth transition between colors */
-
-.try-button {
-  transition: background-color 0.5s, color 0.5s, transform 0.2s ease-out;
-}
-
-.count {
-  font-size: 1rem;
+  filter: brightness(1.08);
+  transform: translateY(-1px);
 }

@@ -1,7 +1,7 @@
 .s-button {
   margin-bottom: 20px;
-  color: #E53224;
-  background-color: #64D6D2;;
+  color: #050712;
+  background: linear-gradient(90deg, #f5d77b, #ff3ede 54%, #42f4ff);
   min-width: 200px;
   text-align: center;
   padding-top: 8px;
@@ -12,12 +12,14 @@
 
 .s-button:hover,
 .s-button:active {
-  background-color: #E53224;
-  color: #64D6D2;
+  filter: brightness(1.08);
+  transform: translateY(-1px);
 }
 
 /* add smooth transition between colors */
 
 .s-button {
-  transition: background-color 0.5s, color 0.5s, transform 0.2s ease-out;
+  transition:
+    filter 180ms ease,
+    transform 180ms ease;
 }

@@ -1,207 +1,321 @@
-// Improved Background.tsx with color animation fix
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import "./Background.css";
 
-interface HeartBackgroundProps {
+type HeartBackgroundProps = {
   country?: string;
-}
-
-// Map of country codes → animation CSS classes
-const countryAnimations: Record<string, string> = {
-  DE: "color-changing-black-red-yellow",
-  FR: "color-changing-blue-white-red",
-  ES: "color-changing-red-yellow",
-  IT: "color-changing-tri-red-green-white",
-  CH: "color-changing-red-white",
-  GB: "color-changing-tri-red-blue-white",
-  IS: "color-changing-blue-white",
-  PL: "color-changing-white-red",
-  SI: "color-changing-blue-white-red",
-  EE: "color-changing-blue-white",
-  UA: "color-changing-blue-yellow",
-  SE: "color-changing-blue-yellow",
-  PT: "color-changing-blue-white-green-red",
-  NO: "color-changing-tri-red-blue-white",
-  BE: "color-changing-black-red-yellow",
-  AZ: "color-changing-blue-red-white-green",
-  SM: "color-changing-white-blue",
-  AL: "color-changing-red-black",
-  NL: "color-changing-blue-white-red",
-  HR: "color-changing-blue-white-red",
-  CY: "color-changing-white-blue",
-  AU: "color-changing-red-white-blue-au",
-  ME: "color-changing-red-yellow",
-  IE: "color-changing-orange-white-green",
-  LV: "color-changing-red-white",
-  AM: "color-changing-blue-red-orangemt",
-  AT: "color-changing-red-white",
-  GR: "color-changing-white-blue",
-  LT: "color-changing-green-yellow-red",
-  MT: "color-changing-white-red",
-  GE: "color-changing-red-white",
-  DK: "color-changing-red-white",
-  CZ: "color-changing-blue-white-red",
-  LU: "color-changing-blue-white-red-lux",
-  IL: "color-changing-blue-white-blue",
-  RS: "color-changing-blue-white-red",
-  FI: "color-changing-blue-white",
 };
 
-const getCountryAnimationClass = (code: string): string =>
-  countryAnimations[code] ?? "color-changing-red-white";
-
-// Heart SVG as a constant to avoid recreating it
-const HEART_SVG = `
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="200 0 176.63 132.62">
-    <path d="M328.125 0c-13.418 0-29.287 9.91-38.892 26.379-2.592-5.948-11.826-12.429-22.803-12.429-8.845 0-33.673 11.055-33.673 46.735 0 46.048 46.588 55.506 56.006 69.817.647.985 2.732 1.728 3.527-.624 7.515-22.179 65.787-47.236 65.787-92.369C358.077 12.198 341.543 0 328.125 0"/>
-  </svg>
-`;
-
-// Create a single heart element
-const createHeartElement = (
-  x: number, 
-  y: number, 
-  delay: number, 
-  animationClass: string, 
-  duration: number
-): HTMLDivElement => {
-  const heart = document.createElement("div");
-  heart.className = `heart ${animationClass}`;
-  heart.style.left = `${x}px`;
-  heart.style.top = `${y}px`;
-  heart.style.animationDuration = `${duration}s`;
-  heart.style.animationDelay = `${delay}s`;
-  heart.innerHTML = HEART_SVG;
-  return heart;
+type SceneImages = {
+  heart: ImageBitmap;
 };
 
-const HeartBackground: React.FC<HeartBackgroundProps> = ({ country = "CH" }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const resizeObserverRef = useRef<ResizeObserver | null>(null);
-  const heartGridRef = useRef<{ rows: number; cols: number }>({ rows: 0, cols: 0 });
-  
-  // Track if we need to rebuild the hearts
-  const needsRebuild = useRef<boolean>(true);
-  const prevAnimationClassRef = useRef<string>(getCountryAnimationClass(country));
+type HeartLayer = {
+  x: number;
+  y: number;
+  width: number;
+  alpha: number;
+  blur: number;
+  rotation: number;
+};
 
-  // Get the current country animation class
-  const animationClass = getCountryAnimationClass(country);
+const brandBase = `${import.meta.env.BASE_URL}brand/`;
+const heartSource = {
+  x: 1600,
+  y: 484,
+  width: 1156,
+  height: 1192,
+};
 
-  // Rebuild hearts when needed
+const countryGlow: Record<string, string> = {
+  AT: "rgba(255, 18, 72, 0.28)",
+  CH: "rgba(255, 18, 72, 0.24)",
+  DE: "rgba(245, 215, 123, 0.22)",
+  ES: "rgba(255, 214, 49, 0.22)",
+  FR: "rgba(36, 98, 255, 0.22)",
+  GB: "rgba(40, 116, 255, 0.22)",
+  IT: "rgba(15, 210, 120, 0.18)",
+  SE: "rgba(55, 159, 255, 0.24)",
+  UA: "rgba(55, 159, 255, 0.24)",
+};
+
+const loadImage = (src: string): Promise<HTMLImageElement> =>
+  new Promise((resolve, reject) => {
+    const image = new Image();
+    image.decoding = "async";
+    image.onload = () => resolve(image);
+    image.onerror = () => reject(new Error(`Unable to load ${src}`));
+    image.src = src;
+  });
+
+const loadHeartBitmap = async (): Promise<ImageBitmap> => {
+  const image = await loadImage(`${brandBase}eurovision-70-layered-heart.png`);
+
+  return createImageBitmap(
+    image,
+    heartSource.x,
+    heartSource.y,
+    heartSource.width,
+    heartSource.height
+  );
+};
+
+const fillRadial = (
+  context: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+  x: number,
+  y: number,
+  radius: number,
+  color: string
+) => {
+  const gradient = context.createRadialGradient(x, y, 0, x, y, radius);
+  gradient.addColorStop(0, color);
+  gradient.addColorStop(0.42, color.replace(/[\d.]+\)$/, "0.11)"));
+  gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, width, height);
+};
+
+const drawBase = (
+  context: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+  country: string
+) => {
+  const gradient = context.createLinearGradient(0, 0, width, height);
+  gradient.addColorStop(0, "#000b45");
+  gradient.addColorStop(0.38, "#00072f");
+  gradient.addColorStop(0.72, "#02043a");
+  gradient.addColorStop(1, "#150050");
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, width, height);
+
+  fillRadial(
+    context,
+    width,
+    height,
+    width * 0.9,
+    height * 0.04,
+    Math.max(width, height) * 0.64,
+    "rgba(34, 15, 255, 0.72)"
+  );
+  fillRadial(
+    context,
+    width,
+    height,
+    width * 0.04,
+    height * 0.94,
+    Math.max(width, height) * 0.62,
+    "rgba(255, 0, 116, 0.55)"
+  );
+  fillRadial(
+    context,
+    width,
+    height,
+    width * 0.72,
+    height * 0.4,
+    Math.max(width, height) * 0.36,
+    countryGlow[country] ?? "rgba(255, 18, 104, 0.18)"
+  );
+
+  const vignette = context.createRadialGradient(
+    width * 0.5,
+    height * 0.47,
+    Math.min(width, height) * 0.1,
+    width * 0.5,
+    height * 0.47,
+    Math.max(width, height) * 0.78
+  );
+  vignette.addColorStop(0, "rgba(0, 0, 0, 0)");
+  vignette.addColorStop(0.74, "rgba(0, 0, 20, 0.2)");
+  vignette.addColorStop(1, "rgba(0, 0, 14, 0.55)");
+  context.fillStyle = vignette;
+  context.fillRect(0, 0, width, height);
+};
+
+const drawHeartLayer = (
+  context: CanvasRenderingContext2D,
+  image: ImageBitmap,
+  layer: HeartLayer
+) => {
+  const height = layer.width * (image.height / image.width);
+
+  context.save();
+  context.translate(layer.x, layer.y);
+  context.rotate(layer.rotation);
+  context.globalAlpha = layer.alpha;
+  context.filter = layer.blur > 0 ? `blur(${layer.blur}px)` : "none";
+  context.drawImage(image, -layer.width / 2, -height / 2, layer.width, height);
+  context.restore();
+};
+
+const getHeartLayers = (width: number, height: number): HeartLayer[] => {
+  const sceneSize = Math.max(width, height);
+  const isCompact = width < 760;
+
+  if (isCompact) {
+    return [
+      {
+        x: width * 1.02,
+        y: height * 0.72,
+        width: sceneSize * 0.62,
+        alpha: 0.9,
+        blur: 0,
+        rotation: -0.02,
+      },
+      {
+        x: width * -0.06,
+        y: height * 0.04,
+        width: sceneSize * 0.62,
+        alpha: 0.78,
+        blur: 0,
+        rotation: -0.5,
+      },
+      {
+        x: width * 0.23,
+        y: height * 0.58,
+        width: width * 0.3,
+        alpha: 0.58,
+        blur: 6,
+        rotation: -0.05,
+      },
+    ];
+  }
+
+  return [
+    {
+      x: width * -0.05,
+      y: height * 0.02,
+      width: sceneSize * 0.5,
+      alpha: 0.88,
+      blur: 0,
+      rotation: -0.52,
+    },
+    {
+      x: width * 1.03,
+      y: height * 0.57,
+      width: sceneSize * 0.52,
+      alpha: 0.94,
+      blur: 0,
+      rotation: -0.02,
+    },
+    {
+      x: width * 0.12,
+      y: height * 0.6,
+      width: width * 0.12,
+      alpha: 0.62,
+      blur: 7,
+      rotation: -0.08,
+    },
+    {
+      x: width * 0.75,
+      y: height * 0.15,
+      width: width * 0.12,
+      alpha: 0.5,
+      blur: 8,
+      rotation: 0.05,
+    },
+    {
+      x: width * 0.63,
+      y: height * 0.78,
+      width: width * 0.07,
+      alpha: 0.55,
+      blur: 5,
+      rotation: 0.12,
+    },
+  ];
+};
+
+const drawScene = (
+  canvas: HTMLCanvasElement,
+  context: CanvasRenderingContext2D,
+  images: SceneImages,
+  country: string
+) => {
+  const bounds = canvas.getBoundingClientRect();
+  const width = Math.max(1, Math.round(bounds.width));
+  const height = Math.max(1, Math.round(bounds.height));
+  const dpr = Math.min(window.devicePixelRatio || 1, 1.35);
+  const canvasWidth = Math.round(width * dpr);
+  const canvasHeight = Math.round(height * dpr);
+
+  if (canvas.width !== canvasWidth || canvas.height !== canvasHeight) {
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+  }
+
+  context.setTransform(dpr, 0, 0, dpr, 0, 0);
+  context.clearRect(0, 0, width, height);
+  context.imageSmoothingEnabled = true;
+  context.imageSmoothingQuality = "high";
+
+  drawBase(context, width, height, country);
+  getHeartLayers(width, height).forEach((layer) =>
+    drawHeartLayer(context, images.heart, layer)
+  );
+};
+
+const HeartBackground = ({ country = "AT" }: HeartBackgroundProps) => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const imagesRef = useRef<SceneImages | null>(null);
+  const countryRef = useRef(country);
+
   useEffect(() => {
-    // Check if animation class changed
-    if (prevAnimationClassRef.current !== animationClass) {
-      needsRebuild.current = true;
-      prevAnimationClassRef.current = animationClass;
-      console.log("Animation class changed to:", animationClass);
+    countryRef.current = country;
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext("2d");
+
+    if (canvas && context && imagesRef.current) {
+      drawScene(canvas, context, imagesRef.current, countryRef.current);
     }
-    
-    // Skip if we don't need to rebuild
-    if (!needsRebuild.current) {
-      return;
+  }, [country]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext("2d");
+
+    if (!canvas || !context) {
+      return undefined;
     }
-    
-    const buildHearts = () => {
-      if (!containerRef.current) return;
-      
-      // Clear existing hearts
-      containerRef.current.innerHTML = "";
-      
-      // Calculate grid
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      const heartSize = 21;
-      
-      // Increase spacing on mobile for better performance
-      const isMobile = window.innerWidth < 768;
-      const spacing = isMobile ? 20 : 30; // px - bigger spacing on mobile
-      
-      // Reduce the number of hearts on mobile
-      const cols = Math.ceil(w / spacing);
-      const rows = Math.ceil(h / spacing);
-      
-      // Record the current grid size
-      heartGridRef.current = { rows, cols };
-      
-      // Animation parameters - slow down on mobile
-      const DURATION = isMobile ? 5 : 5; // sec
-      const MAX_DELAY = isMobile ? 3.5 : 3.5; // sec
-      
-      const originX = w / 2;
-      const originY = 120;
-      
-      // Use document fragment for better performance
-      const fragment = document.createDocumentFragment();
-      
-      // Reduce DOM elements by rendering fewer hearts on mobile
-      const skipFactor = isMobile ? 2 : 1; // Draw every 2nd heart on mobile
-      
-      for (let row = 0; row < rows; row += skipFactor) {
-        for (let col = 0; col < cols; col += skipFactor) {
-          const x = col * spacing + spacing / 2 - heartSize / 2;
-          const y = row * spacing + spacing / 2 - heartSize / 2;
-          
-          const dx = x - originX;
-          const dy = y - originY;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          const maxDistance = Math.sqrt((w / 2) * (w / 2) + h * h);
-          const delay = (distance / maxDistance) * MAX_DELAY;
-          
-          const heart = createHeartElement(
-            x, y, delay, animationClass, DURATION
-          );
-          
-          fragment.appendChild(heart);
-        }
+
+    let disposed = false;
+    let frame = 0;
+
+    const render = () => {
+      if (!imagesRef.current) {
+        return;
       }
-      
-      containerRef.current.appendChild(fragment);
-      needsRebuild.current = false;
+
+      drawScene(canvas, context, imagesRef.current, countryRef.current);
     };
-    
-    // Build initial hearts
-    buildHearts();
-    
-    // Set up resize observer for responsive rebuilding
-    if (!resizeObserverRef.current && containerRef.current) {
-      resizeObserverRef.current = new ResizeObserver((entries) => {
-        // Check if container size changed significantly
-        const entry = entries[0];
-        if (!entry) return;
-        
-        const newWidth = entry.contentRect.width;
-        const newHeight = entry.contentRect.height;
-        
-        // Calculate new grid dimensions
-        const spacing = window.innerWidth < 768 ? 42 : 28;
-        const newCols = Math.ceil(newWidth / spacing);
-        const newRows = Math.ceil(newHeight / spacing);
-        
-        // Only rebuild if grid dimensions changed significantly (>10%)
-        const colDiff = Math.abs(newCols - heartGridRef.current.cols);
-        const rowDiff = Math.abs(newRows - heartGridRef.current.rows);
-        
-        if (colDiff > heartGridRef.current.cols * 0.1 || 
-            rowDiff > heartGridRef.current.rows * 0.1) {
-          needsRebuild.current = true;
-          buildHearts();
-        }
-      });
-      
-      resizeObserverRef.current.observe(containerRef.current);
-    }
-    
+
+    const scheduleRender = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(render);
+    };
+
+    loadHeartBitmap().then((heart) => {
+      if (disposed) {
+        heart.close();
+        return;
+      }
+
+      imagesRef.current = { heart };
+      render();
+      window.addEventListener("resize", scheduleRender);
+      window.visualViewport?.addEventListener("resize", scheduleRender);
+    });
+
     return () => {
-      if (resizeObserverRef.current) {
-        resizeObserverRef.current.disconnect();
-      }
+      disposed = true;
+      cancelAnimationFrame(frame);
+      imagesRef.current?.heart.close();
+      window.removeEventListener("resize", scheduleRender);
+      window.visualViewport?.removeEventListener("resize", scheduleRender);
     };
-  }, [country, animationClass]);
+  }, []);
 
-  // Log for debugging
-  console.log("Rendering background with country:", country, "animation class:", animationClass);
-
-  return <div ref={containerRef} id="heartContainer" className="heart-container" />;
+  return <canvas className="stage-canvas" ref={canvasRef} aria-hidden="true" />;
 };
 
 export default HeartBackground;
