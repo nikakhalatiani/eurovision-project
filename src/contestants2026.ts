@@ -60,7 +60,22 @@ export const allParticipants2026: CountryItem[] = [
   ...automaticFinalists2026,
 ];
 
-export const firstSemiFinalQualifiers2026: CountryItem[] = [];
+export const firstSemiFinalQualifiers2026: CountryItem[] = [
+  country("GR", "Greece"),
+  country("FI", "Finland"),
+  country("BE", "Belgium"),
+  country("SE", "Sweden"),
+  country("MD", "Moldova"),
+  country("IL", "Israel"),
+  country("RS", "Serbia"),
+  country("HR", "Croatia"),
+  country("LT", "Lithuania"),
+  country("PL", "Poland"),
+];
 export const secondSemiFinalQualifiers2026: CountryItem[] = [];
-export const grandFinalParticipants2026: CountryItem[] = automaticFinalists2026;
+export const grandFinalParticipants2026: CountryItem[] = [
+  ...automaticFinalists2026,
+  ...firstSemiFinalQualifiers2026,
+  ...secondSemiFinalQualifiers2026,
+];
 export const finalResults2026: CountryItem[] = [];
