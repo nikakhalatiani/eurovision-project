@@ -75,7 +75,6 @@ const LandingPage = () => {
           />
           <h2>Welcome to Voter</h2>
           <div className="count">{formatCountdown(countdown)} till</div>
-          <div className="euro">Eurovision 2026</div>
           <img
             className="landing-slogan"
             src={sloganSrc}
